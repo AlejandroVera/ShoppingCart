@@ -7,12 +7,17 @@
  */
 package shoppingCart;
 
+import java.rmi.RemoteException;
+
+import org.apache.axis2.AxisFault;
+
 import es.upm.fi.sos.t3.shoppingcart.*;
 
 import shoppingCart.NotEnoughBudgetError;
 import shoppingCart.NotEnoughUnitsError;
 import shoppingCart.NotValidSessionError;
 import shoppingCart.ProductUnknownError;
+import shoppingCart.warehouseClient.WarehouseInformationWSStub;
 
 /**
  * ShoppingCartWSSkeleton java skeleton for the axisService
@@ -20,6 +25,7 @@ import shoppingCart.ProductUnknownError;
 public class ShoppingCartWSSkeleton {
 	
 	private boolean logged = false;
+	private WarehouseInformationWSStub warehouse;
 
 	/**
 	 * Auto generated method signature
@@ -71,12 +77,21 @@ public class ShoppingCartWSSkeleton {
 	 * @param login
 	 */
 
-	public LoginResponse login(
-			Login login) {
+	public LoginResponse login(Login login) {
 		
-		//login.getUsername()
+		if(!this.logged){
+			String user = login.getUsername();
+			String pass = login.getPassword();
+			if((user.equals("Jose") && pass.equals("Esoj")) || (user.equals("Pepe") && pass.equals("Epep"))){
+				try {
+					this.warehouse = new WarehouseInformationWSStub();
+					this.logged = true;
+				} catch (AxisFault e) {	}
+			}
+		}
+		
 		LoginResponse resp = new LoginResponse();
-		resp.setLoginResponse(false);
+		resp.setLoginResponse(this.logged);
 		return resp;
 	}
 
@@ -100,12 +115,26 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public ProductsList getProductsList(
-
-	) throws NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#getProductsList");
+	public ProductsList getProductsList( ) throws NotValidSessionError {
+		
+		//Revisamos que estemos logueados
+		checkSession();
+		
+		ProductsList resp = new ProductsList();
+		try {
+			//Obtenemos la lista de productos del warehouse
+			String lista[] = this.warehouse.getProductsList().getProduct();
+			
+			//Añadimos los productos a la respuesta del metodo
+			for(int x=0; x< lista.length; ++x)
+				resp.addProduct(lista[x]);
+			
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return resp;
+		
 	}
 
 	/**
@@ -199,6 +228,11 @@ public class ShoppingCartWSSkeleton {
 		// TODO : fill this with the necessary business logic
 		throw new java.lang.UnsupportedOperationException("Please implement "
 				+ this.getClass().getName() + "#getProductPrice");
+	}
+	
+	private void checkSession() throws NotValidSessionError{
+		if(!this.logged)
+			throw new NotValidSessionError();
 	}
 
 }
