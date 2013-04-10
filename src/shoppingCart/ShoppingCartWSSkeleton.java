@@ -24,8 +24,11 @@ import shoppingCart.warehouseClient.WarehouseInformationWSStub;
  */
 public class ShoppingCartWSSkeleton {
 	
+	private static double DEFAULT_BUDGET = 1000000.0;
+	
 	private boolean logged = false;
 	private WarehouseInformationWSStub warehouse;
+	private double budget;
 
 	/**
 	 * Auto generated method signature
@@ -49,12 +52,33 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public ProductAvailableUnits getProductAvailableUnits(
-			ProductName productName)
+	public ProductAvailableUnits getProductAvailableUnits(ProductName productName)
 			throws ProductUnknownError, NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#getProductAvailableUnits");
+		
+		//Revisamos que estemos logueados
+		checkSession();
+		
+		//Comprobamos que el producto exista
+		if(!checkProductExistence(productName.getProductName()))
+			throw new ProductUnknownError();
+		
+		ProductAvailableUnits resp = new ProductAvailableUnits();
+		
+		//Solicitamos al warehouse el numero de unidades (con las pertinentes conversiones de clases)
+		WarehouseInformationWSStub.ProductName product = new WarehouseInformationWSStub.ProductName();
+		product.setProductName(productName.getProductName());
+		
+		try {
+			WarehouseInformationWSStub.ProductAvailableUnits numberUnits = this.warehouse.getProductAvailableUnits(product);
+			resp.setProductAvailableUnits(numberUnits.getProductAvailableUnits());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
+		return resp;
+		
+		
+		
 	}
 
 	/**
@@ -63,12 +87,15 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public Budget budget(
-
-	) throws NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#budget");
+	public Budget budget( ) throws NotValidSessionError {
+		
+		//Revisamos que estemos logueados
+		checkSession();
+		
+		Budget resp = new Budget();
+		resp.setBudget(this.budget);
+		
+		return resp;
 	}
 
 	/**
@@ -85,6 +112,7 @@ public class ShoppingCartWSSkeleton {
 			if((user.equals("Jose") && pass.equals("Esoj")) || (user.equals("Pepe") && pass.equals("Epep"))){
 				try {
 					this.warehouse = new WarehouseInformationWSStub();
+					this.budget = DEFAULT_BUDGET;
 					this.logged = true;
 				} catch (AxisFault e) {	}
 			}
@@ -123,7 +151,7 @@ public class ShoppingCartWSSkeleton {
 		ProductsList resp = new ProductsList();
 		try {
 			//Obtenemos la lista de productos del warehouse
-			String lista[] = this.warehouse.getProductsList().getProduct();
+			String[] lista = this.warehouse.getProductsList().getProduct();
 			
 			//Añadimos los productos a la respuesta del metodo
 			for(int x=0; x< lista.length; ++x)
@@ -233,6 +261,16 @@ public class ShoppingCartWSSkeleton {
 	private void checkSession() throws NotValidSessionError{
 		if(!this.logged)
 			throw new NotValidSessionError();
+	}
+	
+	private boolean checkProductExistence(String productName) throws NotValidSessionError{
+		String[] productos = getProductsList().getProduct();
+		
+		for(int x=0; x < productos.length; ++x)
+			if(productos[x].equals(productName))
+				return true;
+		
+		return false;
 	}
 
 }
