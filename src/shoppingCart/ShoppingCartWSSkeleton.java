@@ -10,6 +10,8 @@ package shoppingCart;
  * ShoppingCartWSSkeleton java skeleton for the axisService
  */
 public class ShoppingCartWSSkeleton {
+	
+	private boolean logged = false;
 
 	/**
 	 * Auto generated method signature
@@ -63,9 +65,8 @@ public class ShoppingCartWSSkeleton {
 
 	public es.upm.fi.sos.t3.shoppingcart.LoginResponse login(
 			es.upm.fi.sos.t3.shoppingcart.Login login) {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#login");
+		
+		//login.getUse 
 	}
 
 	/**
