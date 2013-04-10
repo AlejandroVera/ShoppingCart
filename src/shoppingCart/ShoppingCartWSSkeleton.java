@@ -1,3 +1,4 @@
+
 /**
  * ShoppingCartWSSkeleton.java
  *
@@ -5,6 +6,13 @@
  * by the Apache Axis2 version: 1.5.4  Built on : Dec 19, 2010 (08:18:42 CET)
  */
 package shoppingCart;
+
+import es.upm.fi.sos.t3.shoppingcart.*;
+
+import shoppingCart.NotEnoughBudgetError;
+import shoppingCart.NotEnoughUnitsError;
+import shoppingCart.NotValidSessionError;
+import shoppingCart.ProductUnknownError;
 
 /**
  * ShoppingCartWSSkeleton java skeleton for the axisService
@@ -19,7 +27,7 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.ProductsAmountsList productsInCart(
+	public ProductsAmountsList productsInCart(
 
 	) throws NotValidSessionError {
 		// TODO : fill this with the necessary business logic
@@ -35,8 +43,8 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.ProductAvailableUnits getProductAvailableUnits(
-			es.upm.fi.sos.t3.shoppingcart.ProductName productName)
+	public ProductAvailableUnits getProductAvailableUnits(
+			ProductName productName)
 			throws ProductUnknownError, NotValidSessionError {
 		// TODO : fill this with the necessary business logic
 		throw new java.lang.UnsupportedOperationException("Please implement "
@@ -49,7 +57,7 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.Budget budget(
+	public Budget budget(
 
 	) throws NotValidSessionError {
 		// TODO : fill this with the necessary business logic
@@ -63,10 +71,13 @@ public class ShoppingCartWSSkeleton {
 	 * @param login
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.LoginResponse login(
-			es.upm.fi.sos.t3.shoppingcart.Login login) {
+	public LoginResponse login(
+			Login login) {
 		
-		//login.getUse 
+		//login.getUsername()
+		LoginResponse resp = new LoginResponse();
+		resp.setLoginResponse(false);
+		return resp;
 	}
 
 	/**
@@ -75,7 +86,7 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.CostOfCart costOfCart(
+	public CostOfCart costOfCart(
 
 	) throws NotValidSessionError {
 		// TODO : fill this with the necessary business logic
@@ -89,7 +100,7 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.ProductsList getProductsList(
+	public ProductsList getProductsList(
 
 	) throws NotValidSessionError {
 		// TODO : fill this with the necessary business logic
@@ -105,8 +116,8 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.ProductAvailable checkProductAvailability(
-			es.upm.fi.sos.t3.shoppingcart.ProductAmount productAmount)
+	public ProductAvailable checkProductAvailability(
+			ProductAmount productAmount)
 			throws ProductUnknownError, NotValidSessionError {
 		// TODO : fill this with the necessary business logic
 		throw new java.lang.UnsupportedOperationException("Please implement "
@@ -122,8 +133,8 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.ProductAvailableUnits addToCart(
-			es.upm.fi.sos.t3.shoppingcart.ProductAmount productAmount4)
+	public ProductAvailableUnits addToCart(
+			ProductAmount productAmount4)
 			throws ProductUnknownError, NotEnoughUnitsError,
 			NotValidSessionError {
 		// TODO : fill this with the necessary business logic
@@ -150,7 +161,7 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotEnoughBudgetError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.Budget buy(
+	public Budget buy(
 
 	) throws NotValidSessionError, NotEnoughBudgetError {
 		// TODO : fill this with the necessary business logic
@@ -166,8 +177,8 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.ProductAvailableUnits removeFromCart(
-			es.upm.fi.sos.t3.shoppingcart.ProductAmount productAmount9)
+	public ProductAvailableUnits removeFromCart(
+			ProductAmount productAmount9)
 			throws ProductUnknownError, NotValidSessionError {
 		// TODO : fill this with the necessary business logic
 		throw new java.lang.UnsupportedOperationException("Please implement "
@@ -182,8 +193,8 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public es.upm.fi.sos.t3.shoppingcart.ProductPrice getProductPrice(
-			es.upm.fi.sos.t3.shoppingcart.ProductName productName11)
+	public ProductPrice getProductPrice(
+			ProductName productName11)
 			throws ProductUnknownError, NotValidSessionError {
 		// TODO : fill this with the necessary business logic
 		throw new java.lang.UnsupportedOperationException("Please implement "
