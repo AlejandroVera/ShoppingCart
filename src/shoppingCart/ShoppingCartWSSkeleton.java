@@ -8,6 +8,9 @@
 package shoppingCart;
 
 import java.rmi.RemoteException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.axis2.AxisFault;
 
@@ -24,11 +27,24 @@ import shoppingCart.warehouseClient.WarehouseInformationWSStub;
  */
 public class ShoppingCartWSSkeleton {
 	
+	class CartItem {
+		
+		String product;
+		int amount;
+		
+		public CartItem(String product, int amount) {
+			this.product = product;
+			this.amount = amount;
+		}
+		
+	}
+	
 	private static double DEFAULT_BUDGET = 1000000.0;
 	
 	private boolean logged = false;
 	private WarehouseInformationWSStub warehouse;
 	private double budget;
+	private List<CartItem> cart;
 
 	/**
 	 * Auto generated method signature
@@ -36,12 +52,23 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public ProductsAmountsList productsInCart(
-
-	) throws NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#productsInCart");
+	public ProductsAmountsList productsInCart( ) throws NotValidSessionError {
+		
+		//Revisamos que estemos logueados
+		checkSession();
+		
+		ProductsAmountsList resp = new ProductsAmountsList();
+		
+		//Rellenamos la lista a devolver
+		for(CartItem item : cart){
+			ProductAmountType temp = new ProductAmountType();
+			temp.setProduct(item.product);
+			temp.setAmount(item.amount);
+			resp.addProductAmountInfo(temp);
+		}
+		
+		return resp;
+		
 	}
 
 	/**
@@ -113,6 +140,7 @@ public class ShoppingCartWSSkeleton {
 				try {
 					this.warehouse = new WarehouseInformationWSStub();
 					this.budget = DEFAULT_BUDGET;
+					this.cart = new LinkedList<CartItem>();
 					this.logged = true;
 				} catch (AxisFault e) {	}
 			}
@@ -129,12 +157,29 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotValidSessionError:
 	 */
 
-	public CostOfCart costOfCart(
-
-	) throws NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#costOfCart");
+	public CostOfCart costOfCart( ) throws NotValidSessionError {
+		
+		//Revisamos que estemos logueados
+		checkSession();
+		
+		CostOfCart resp = new CostOfCart();
+		
+		double total = 0.0;
+		
+		for(CartItem item : cart){
+			ProductName temp = new ProductName();
+			temp.setProductName(item.product);
+			try {
+				total += getProductPrice(temp).getProductPrice() * item.amount;
+			} catch (ProductUnknownError e) {
+				e.printStackTrace();
+			}
+		}
+		
+		resp.setCostOfCart(total);
+		
+		return resp;
+		
 	}
 
 	/**
