@@ -8,6 +8,7 @@
 package shoppingCart;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,21 +27,21 @@ import shoppingCart.warehouseClient.WarehouseInformationWSStub;
  * ShoppingCartWSSkeleton java skeleton for the axisService
  */
 public class ShoppingCartWSSkeleton {
-	
+
 	class CartItem {
-		
+
 		String product;
 		int amount;
-		
+
 		public CartItem(String product, int amount) {
 			this.product = product;
 			this.amount = amount;
 		}
-		
+
 	}
-	
+
 	private static double DEFAULT_BUDGET = 1000000.0;
-	
+
 	private boolean logged = false;
 	private WarehouseInformationWSStub warehouse;
 	private double budget;
@@ -53,12 +54,12 @@ public class ShoppingCartWSSkeleton {
 	 */
 
 	public ProductsAmountsList productsInCart( ) throws NotValidSessionError {
-		
+
 		//Revisamos que estemos logueados
 		checkSession();
-		
+
 		ProductsAmountsList resp = new ProductsAmountsList();
-		
+
 		//Rellenamos la lista a devolver
 		for(CartItem item : cart){
 			ProductAmountType temp = new ProductAmountType();
@@ -66,9 +67,9 @@ public class ShoppingCartWSSkeleton {
 			temp.setAmount(item.amount);
 			resp.addProductAmountInfo(temp);
 		}
-		
+
 		return resp;
-		
+
 	}
 
 	/**
@@ -81,31 +82,31 @@ public class ShoppingCartWSSkeleton {
 
 	public ProductAvailableUnits getProductAvailableUnits(ProductName productName)
 			throws ProductUnknownError, NotValidSessionError {
-		
+
 		//Revisamos que estemos logueados
 		checkSession();
-		
+
 		//Comprobamos que el producto exista
 		if(!checkProductExistence(productName.getProductName()))
 			throw new ProductUnknownError();
-		
+
 		ProductAvailableUnits resp = new ProductAvailableUnits();
-		
+
 		//Solicitamos al warehouse el numero de unidades (con las pertinentes conversiones de clases)
 		WarehouseInformationWSStub.ProductName product = new WarehouseInformationWSStub.ProductName();
 		product.setProductName(productName.getProductName());
-		
+
 		try {
 			WarehouseInformationWSStub.ProductAvailableUnits numberUnits = this.warehouse.getProductAvailableUnits(product);
 			resp.setProductAvailableUnits(numberUnits.getProductAvailableUnits());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return resp;
-		
-		
-		
+
+
+
 	}
 
 	/**
@@ -115,13 +116,13 @@ public class ShoppingCartWSSkeleton {
 	 */
 
 	public Budget budget( ) throws NotValidSessionError {
-		
+
 		//Revisamos que estemos logueados
 		checkSession();
-		
+
 		Budget resp = new Budget();
 		resp.setBudget(this.budget);
-		
+
 		return resp;
 	}
 
@@ -132,7 +133,7 @@ public class ShoppingCartWSSkeleton {
 	 */
 
 	public LoginResponse login(Login login) {
-		
+
 		if(!this.logged){
 			String user = login.getUsername();
 			String pass = login.getPassword();
@@ -145,7 +146,7 @@ public class ShoppingCartWSSkeleton {
 				} catch (AxisFault e) {	}
 			}
 		}
-		
+
 		LoginResponse resp = new LoginResponse();
 		resp.setLoginResponse(this.logged);
 		return resp;
@@ -158,14 +159,14 @@ public class ShoppingCartWSSkeleton {
 	 */
 
 	public CostOfCart costOfCart( ) throws NotValidSessionError {
-		
+
 		//Revisamos que estemos logueados
 		checkSession();
-		
+
 		CostOfCart resp = new CostOfCart();
-		
+
 		double total = 0.0;
-		
+
 		for(CartItem item : cart){
 			ProductName temp = new ProductName();
 			temp.setProductName(item.product);
@@ -175,11 +176,11 @@ public class ShoppingCartWSSkeleton {
 				e.printStackTrace();
 			}
 		}
-		
+
 		resp.setCostOfCart(total);
-		
+
 		return resp;
-		
+
 	}
 
 	/**
@@ -189,25 +190,25 @@ public class ShoppingCartWSSkeleton {
 	 */
 
 	public ProductsList getProductsList( ) throws NotValidSessionError {
-		
+
 		//Revisamos que estemos logueados
 		checkSession();
-		
+
 		ProductsList resp = new ProductsList();
 		try {
 			//Obtenemos la lista de productos del warehouse
 			String[] lista = this.warehouse.getProductsList().getProduct();
-			
+
 			//Añadimos los productos a la respuesta del metodo
 			for(int x=0; x< lista.length; ++x)
 				resp.addProduct(lista[x]);
-			
+
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return resp;
-		
+
 	}
 
 	/**
@@ -220,10 +221,37 @@ public class ShoppingCartWSSkeleton {
 
 	public ProductAvailable checkProductAvailability(
 			ProductAmount productAmount)
-			throws ProductUnknownError, NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#checkProductAvailability");
+					throws ProductUnknownError, NotValidSessionError {
+
+		//Revisamos que seguimos logueados
+		checkSession();
+
+		//Buscamos si el producto existe
+		String nombre = productAmount.getProductAmount().getProduct();
+		if(!checkProductExistence(nombre))
+			throw new ProductUnknownError();
+
+		boolean enough = false;
+
+		int amount = productAmount.getProductAmount().getAmount();
+
+		int num= 0;
+
+		int indice = buscaCarro (nombre);
+
+		if (indice!=-1 && amount>0){
+			CartItem item = cart.get(indice);
+			num = item.amount;
+		}
+
+		//Si hay más o igual a la cantidad pedida devolvemos true
+		if (num>=amount)
+			enough=true;
+
+		ProductAvailable available = new ProductAvailable();
+		available.setProductAvailable(enough);
+		return available;
+
 	}
 
 	/**
@@ -237,11 +265,41 @@ public class ShoppingCartWSSkeleton {
 
 	public ProductAvailableUnits addToCart(
 			ProductAmount productAmount4)
-			throws ProductUnknownError, NotEnoughUnitsError,
-			NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#addToCart");
+					throws ProductUnknownError, NotEnoughUnitsError,
+					NotValidSessionError {
+		//Revisamos que seguimos logueados
+		checkSession();
+
+
+		String nombre = productAmount4.getProductAmount().getProduct();
+		int cantidad = productAmount4.getProductAmount().getAmount();
+
+		ProductName productName = new ProductName();
+		productName.setProductName(nombre);
+		if (getProductAvailableUnits(productName).getProductAvailableUnits()<cantidad)
+			throw new NotEnoughUnitsError();
+
+		CartItem item;
+		int indice = buscaCarro (nombre);
+		int num;
+
+		//Si existe ya el item aumentamos su cantidad
+		if (indice!=-1){
+			item = cart.get(indice);
+			num=item.amount+cantidad;
+			item.amount=num;
+			cart.set(indice, item);			
+		}
+		//Si no, lo añadimos a la lista
+		else{
+			item = new CartItem(nombre,cantidad);
+			cart.add(item);
+			num=cantidad;
+		}
+
+		ProductAvailableUnits units = new ProductAvailableUnits();
+		units.setProductAvailableUnits(num);
+		return units;
 	}
 
 	/**
@@ -249,10 +307,10 @@ public class ShoppingCartWSSkeleton {
 	 * 
 	 */
 
-	public void logout(
-
-	) {
-		// TODO : fill this with the necessary business logic
+	public void logout() {
+		if (this.logged){
+			this.logged=false;
+		}
 
 	}
 
@@ -263,12 +321,22 @@ public class ShoppingCartWSSkeleton {
 	 * @throws NotEnoughBudgetError:
 	 */
 
-	public Budget buy(
-
-	) throws NotValidSessionError, NotEnoughBudgetError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#buy");
+	public Budget buy() throws NotValidSessionError, NotEnoughBudgetError {
+		double coste = this.costOfCart().getCostOfCart();
+		double presupuesto = this.budget;
+		
+		checkSession();
+		//Si no tenemos suficiente dinero lanzamos excepcion
+		if (presupuesto < coste)
+			throw new NotEnoughBudgetError();
+		else{
+			//Se realiza la compra vaciando el carro y haciendo el cobro
+			this.budget=presupuesto-coste;
+			this.cart = new LinkedList<CartItem>();
+		}
+		Budget bud = new Budget();
+		bud.setBudget(this.budget);
+		return bud;
 	}
 
 	/**
@@ -281,10 +349,35 @@ public class ShoppingCartWSSkeleton {
 
 	public ProductAvailableUnits removeFromCart(
 			ProductAmount productAmount9)
-			throws ProductUnknownError, NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#removeFromCart");
+					throws ProductUnknownError, NotValidSessionError {
+		//Revisamos que seguimos logueados
+		checkSession();
+
+		String nombre = productAmount9.getProductAmount().getProduct();
+		int cantidad = productAmount9.getProductAmount().getAmount();
+		
+		//Comprobamos que existe
+		if(!checkProductExistence(nombre))
+			throw new ProductUnknownError();
+		
+		CartItem item;
+		int indice = buscaCarro (nombre);
+		int num=0;
+
+		//Si esta el item disminuimos su cantidad
+		if (indice!=-1){
+			item = cart.get(indice);
+			if (item.amount>=cantidad){
+				num=item.amount-cantidad;
+				item.amount=num;
+				cart.set(indice, item);				
+			}
+		}
+		
+		ProductAvailableUnits units = new ProductAvailableUnits();
+		units.setProductAvailableUnits(num);
+		return units;
+
 	}
 
 	/**
@@ -297,25 +390,66 @@ public class ShoppingCartWSSkeleton {
 
 	public ProductPrice getProductPrice(
 			ProductName productName11)
-			throws ProductUnknownError, NotValidSessionError {
-		// TODO : fill this with the necessary business logic
-		throw new java.lang.UnsupportedOperationException("Please implement "
-				+ this.getClass().getName() + "#getProductPrice");
+					throws ProductUnknownError, NotValidSessionError {
+		//Revisamos que estemos logueados
+		checkSession();
+
+		//Comprobamos que el producto exista
+		if(!checkProductExistence(productName11.getProductName()))
+			throw new ProductUnknownError();
+
+		ProductPrice precio = new ProductPrice();
+
+		//Obtenemos el precio del producto
+		WarehouseInformationWSStub.ProductName product = new WarehouseInformationWSStub.ProductName();
+		product.setProductName(productName11.getProductName());		
+
+		try {
+			WarehouseInformationWSStub.ProductPrice productPrecio = this.warehouse.getProductPrice(product);
+			precio.setProductPrice(productPrecio.getProductPrice());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		return precio;
+
+
 	}
-	
+
 	private void checkSession() throws NotValidSessionError{
 		if(!this.logged)
 			throw new NotValidSessionError();
 	}
-	
+
 	private boolean checkProductExistence(String productName) throws NotValidSessionError{
 		String[] productos = getProductsList().getProduct();
-		
+
 		for(int x=0; x < productos.length; ++x)
 			if(productos[x].equals(productName))
 				return true;
-		
+
 		return false;
 	}
 
+	/*Metodo auxiliar. Devuelve en donde se encuentra un producto en el carro en la lista.
+	 * Si la lista esta vacia o no esta el producto en el carro devuelve -1.
+	 */
+
+	private int buscaCarro (String nombreProducto){
+		boolean found = false;
+		int num = -1;
+
+		CartItem item;
+		int i = 0;
+		while (!found && i<cart.size()){
+			item =  cart.get(i);
+			if (item.product.equals(nombreProducto)){
+				found=true;
+				num=i ;
+			}
+			i++;				
+		}
+
+		return num;
+	}
 }
