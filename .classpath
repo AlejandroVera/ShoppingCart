@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="shoppingCart/bin" path="shoppingCart/src"/>
+	<classpathentry kind="src" output="client/bin" path="client/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Axis2"/>
 	<classpathentry kind="output" path="bin"/>
