@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="710.0" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <HBox prefHeight="40.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <GridPane prefHeight="30.0" prefWidth="710.0">
+          <children>
+            <Label fx:id="nombre" text="Queso de Burgos especial extra" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="precio" prefWidth="41.0" text="5 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="unidades" text="500 uds." GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <TextField fx:id="udsToAdd" alignment="CENTER" prefHeight="23.999900000002526" prefWidth="36.0" promptText="" text="0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <Button fx:id="botonAccion" minHeight="22.0" mnemonicParsing="false" prefHeight="29.0" text="Añadir al carro" GridPane.columnIndex="9" GridPane.rowIndex="1">
+              <graphic>
+                <ImageView id="cart" fitHeight="28.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@images/cart.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <ImageView id="mas" fx:id="sumarIcon" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#sumarUnidad" pickOnBounds="true" preserveRatio="false" GridPane.columnIndex="7" GridPane.rowIndex="1">
+              <image>
+                <Image url="@images/mas.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <ImageView id="remove" fx:id="restarIcon" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#restarUnidad" pickOnBounds="true" preserveRatio="true" visible="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
+              <image>
+                <Image url="@images/remove.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="9.0" prefWidth="11.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="234.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="0.0" prefWidth="23.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="236.0" minWidth="5.0" prefWidth="56.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="236.0" minWidth="4.0" prefWidth="17.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="82.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="295.0" minWidth="5.0" prefWidth="22.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="295.0" minWidth="0.0" prefWidth="41.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="36.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="188.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="29.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="15.0" minHeight="0.0" prefHeight="12.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>
