@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<StackPane id="globalContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" styleClass="" xmlns:fx="http://javafx.com/fxml">
+<StackPane id="globalContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" styleClass="null" xmlns:fx="http://javafx.com/fxml">
   <children>
-    <AnchorPane fx:id="loginContainer" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane fx:id="loginContainer" opacity="1.0" prefHeight="200.0" prefWidth="200.0" visible="true">
       <children>
         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="850.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
@@ -50,7 +50,10 @@
         <URL value="@GlobalContainer.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane fx:id="listContainer" prefHeight="200.0" prefWidth="200.0" visible="false">
+    <AnchorPane fx:id="listContainer" prefHeight="200.0" prefWidth="200.0" visible="true">
+      <children>
+        <Label layoutX="425.0" layoutY="300.0" text="LOL" textFill="BLACK" />
+      </children>
       <stylesheets>
         <URL value="@GlobalContainer.css" />
       </stylesheets>
