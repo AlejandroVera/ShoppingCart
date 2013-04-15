@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<StackPane id="globalContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" styleClass="null" xmlns:fx="http://javafx.com/fxml">
+<StackPane id="globalContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" styleClass="null" xmlns:fx="http://javafx.com/fxml" fx:controller="GlobalContainer">
   <children>
     <AnchorPane fx:id="loginContainer" opacity="1.0" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
@@ -129,12 +129,38 @@
       <children>
         <StackPane prefHeight="600.0" prefWidth="850.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
-            <AnchorPane fx:id="background" blendMode="DARKEN" opacity="0.3" prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane fx:id="background" blendMode="DARKEN" opacity="0.3" prefHeight="200.0" prefWidth="200.0" visible="false">
               <stylesheets>
                 <URL value="@GlobalContainer.css" />
               </stylesheets>
             </AnchorPane>
-            <AnchorPane fx:id="cartPopup" maxHeight="-Infinity" maxWidth="-Infinity" opacity="1.0" prefHeight="600.0" prefWidth="570.0" visible="false" StackPane.alignment="CENTER">
+            <AnchorPane fx:id="cartPopup" maxHeight="-Infinity" maxWidth="-Infinity" opacity="1.0" prefHeight="539.0" prefWidth="570.0" visible="true" StackPane.alignment="CENTER">
+              <children>
+                <BorderPane prefHeight="600.0" prefWidth="570.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <bottom>
+                    <VBox prefHeight="62.0" prefWidth="570.0" />
+                  </bottom>
+                  <top>
+                    <GridPane gridLinesVisible="false" visible="true" BorderPane.alignment="CENTER">
+                      <children>
+                        <Button mnemonicParsing="false" onMouseClicked="#closeCartPopup" text="[X]" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <children>
+                            <Label alignment="CENTER" contentDisplay="CENTER" text="Carro" />
+                          </children>
+                        </HBox>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="512.0" minWidth="10.0" prefWidth="512.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="58.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </top>
+                </BorderPane>
+              </children>
               <stylesheets>
                 <URL value="@GlobalContainer.css" />
               </stylesheets>
