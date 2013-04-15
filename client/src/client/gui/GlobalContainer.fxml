@@ -63,7 +63,7 @@
                   <children>
                     <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                       <content>
-                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                        <VBox fx:id="listaAlmacen" prefHeight="469.0" prefWidth="711.0" />
                       </content>
                     </ScrollPane>
                   </children>
