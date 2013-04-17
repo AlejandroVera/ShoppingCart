@@ -16,3 +16,10 @@
 	-fx-font-family: "Arial Narrow";
 	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0 , 2 , 5 );
 }
+
+#cartPopup{
+	-fx-border-style: solid;
+	-fx-border-color: rgba(170, 170, 170, 0.4);
+	-fx-border-width: 1px;
+	-fx-border-radius: 15px;
+}
