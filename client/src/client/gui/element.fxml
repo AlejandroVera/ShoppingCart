@@ -17,7 +17,7 @@
             <Label fx:id="precio" prefWidth="41.0" text="5 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label fx:id="unidades" text="500 uds." GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <TextField fx:id="udsToAdd" alignment="CENTER" prefHeight="23.999900000002526" prefWidth="36.0" promptText="" text="0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-            <Button fx:id="botonAccion" minHeight="22.0" mnemonicParsing="false" prefHeight="29.0" text="Añadir al carro" GridPane.columnIndex="9" GridPane.rowIndex="1">
+            <Button fx:id="botonAccion" minHeight="22.0" mnemonicParsing="false" onMouseClicked="#modificarCarro" prefHeight="29.0" text="Añadir al carro" GridPane.columnIndex="9" GridPane.rowIndex="1">
               <graphic>
                 <ImageView id="cart" fitHeight="28.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -31,7 +31,7 @@
                 <Image url="@images/mas.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <ImageView id="remove" fx:id="restarIcon" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#restarUnidad" pickOnBounds="true" preserveRatio="true" visible="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <ImageView id="remove" fx:id="restarIcon" fitHeight="28.999908447265625" fitWidth="28.999908447265625" onMouseClicked="#restarUnidad" pickOnBounds="true" preserveRatio="true" visible="true" GridPane.columnIndex="7" GridPane.rowIndex="1">
               <image>
                 <Image url="@images/remove.png" preserveRatio="true" smooth="true" />
               </image>
