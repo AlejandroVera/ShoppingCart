@@ -125,61 +125,81 @@
         <URL value="@GlobalContainer.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane fx:id="cartContainer" prefHeight="200.0" prefWidth="200.0" visible="false">
-      <stylesheets>
-        <URL value="@GlobalContainer.css" />
-      </stylesheets>
-    </AnchorPane>
-    <StackPane prefHeight="600.0" prefWidth="850.0" visible="true">
+    <AnchorPane fx:id="cartContainer" prefHeight="200.0" prefWidth="200.0" visible="true">
       <children>
-        <AnchorPane fx:id="background" blendMode="DARKEN" opacity="0.3" prefHeight="200.0" prefWidth="200.0" visible="false">
-          <stylesheets>
-            <URL value="@GlobalContainer.css" />
-          </stylesheets>
-        </AnchorPane>
-        <AnchorPane fx:id="cartPopup" maxHeight="-Infinity" maxWidth="-Infinity" opacity="1.0" prefHeight="539.0" prefWidth="570.0" visible="true" StackPane.alignment="CENTER">
+        <StackPane layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="850.0" visible="true">
           <children>
-            <BorderPane prefHeight="600.0" prefWidth="570.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <bottom>
-                <VBox prefHeight="62.0" prefWidth="570.0" />
-              </bottom>
-              <center>
-                <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                  <content>
-                    <VBox id="VBox" fx:id="listaCarro" alignment="CENTER" spacing="5.0" />
-                  </content>
-                </ScrollPane>
-              </center>
-              <top>
-                <GridPane gridLinesVisible="false" visible="true" BorderPane.alignment="CENTER">
-                  <children>
-                    <Button mnemonicParsing="false" onMouseClicked="#closeCartPopup" text="[X]" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <AnchorPane fx:id="background" blendMode="DARKEN" onMouseClicked="#closeCartPopup" opacity="0.3" prefHeight="200.0" prefWidth="200.0" visible="false">
+              <stylesheets>
+                <URL value="@GlobalContainer.css" />
+              </stylesheets>
+            </AnchorPane>
+            <AnchorPane fx:id="cartPopup" maxHeight="-Infinity" maxWidth="-Infinity" opacity="1.0" prefHeight="539.0" prefWidth="570.0" visible="true" StackPane.alignment="CENTER">
+              <children>
+                <BorderPane prefHeight="600.0" prefWidth="570.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <bottom>
+                    <VBox prefHeight="62.0" prefWidth="570.0">
                       <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Carro" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="398.0">
+                              <children>
+                                <Label id="totalLabel" text="Total:" />
+                                <Label fx:id="totalNumLabel" text="0€" />
+                              </children>
+                            </HBox>
+                            <HBox id="HBox" alignment="CENTER" prefHeight="62.0" prefWidth="170.0" spacing="5.0">
+                              <children>
+                                <Button mnemonicParsing="false" onMouseClicked="#realizarCompra" prefHeight="30.0" prefWidth="129.0" text="Realizar compra" />
+                              </children>
+                            </HBox>
+                          </children>
+                        </HBox>
                       </children>
-                    </HBox>
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="512.0" minWidth="10.0" prefWidth="512.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="58.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
-              </top>
-            </BorderPane>
+                    </VBox>
+                  </bottom>
+                  <center>
+                    <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                      <content>
+                        <VBox id="VBox" fx:id="listaCarro" alignment="CENTER" spacing="5.0" />
+                      </content>
+                    </ScrollPane>
+                  </center>
+                  <top>
+                    <GridPane gridLinesVisible="false" visible="true" BorderPane.alignment="CENTER">
+                      <children>
+                        <Button mnemonicParsing="false" onMouseClicked="#closeCartPopup" text="[X]" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <children>
+                            <Label alignment="CENTER" contentDisplay="CENTER" text="Carro" />
+                          </children>
+                        </HBox>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="512.0" minWidth="10.0" prefWidth="512.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="58.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </top>
+                </BorderPane>
+              </children>
+              <stylesheets>
+                <URL value="@GlobalContainer.css" />
+              </stylesheets>
+            </AnchorPane>
           </children>
           <stylesheets>
             <URL value="@GlobalContainer.css" />
           </stylesheets>
-        </AnchorPane>
+        </StackPane>
       </children>
       <stylesheets>
         <URL value="@GlobalContainer.css" />
       </stylesheets>
-    </StackPane>
+    </AnchorPane>
   </children>
   <stylesheets>
     <URL value="@GlobalContainer.css" />
