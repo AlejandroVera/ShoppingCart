@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<StackPane id="globalContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" styleClass="null" xmlns:fx="http://javafx.com/fxml" fx:controller="GlobalContainer">
+<StackPane id="globalContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" styleClass="null" xmlns:fx="http://javafx.com/fxml" fx:controller="client.gui.GlobalContainer">
   <children>
     <AnchorPane fx:id="loginContainer" opacity="1.0" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>

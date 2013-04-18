@@ -1,7 +1,12 @@
 package client;
 
+import java.net.URL;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -27,6 +32,17 @@ public class ClientLauncher extends Application {
 				System.exit(0);
 			}
 		});
+		
+		//Cargamos el controlador
+		FXMLLoader loader = new FXMLLoader();
+		URL resource = getClass().getResource("gui/GlobalContainer.fxml");
+		loader.setLocation(resource);
+		Parent root = (Parent) loader.load(resource.openStream());
+		
+		//Mostramos la nueva vista
+		Scene scene = new Scene(root, this.primaryStage.getWidth(), this.primaryStage.getHeight());
+		this.primaryStage.setScene(scene);
+		this.primaryStage.show();
 
 	}
 

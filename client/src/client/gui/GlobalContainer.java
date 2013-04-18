@@ -2,6 +2,10 @@ package client.gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import org.apache.axis2.AxisFault;
+
+import client.ShoppingCartWSStub;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +18,8 @@ import javafx.scene.layout.VBox;
 
 
 public class GlobalContainer {
+	
+	private ShoppingCartWSStub shopCart;
 
     @FXML
     private ResourceBundle resources;
@@ -105,7 +111,17 @@ public class GlobalContainer {
         assert totalNumLabel != null : "fx:id=\"totalNumLabel\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
         assert userLoginField != null : "fx:id=\"userLoginField\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
 
-
+        try {
+			this.shopCart = new ShoppingCartWSStub();
+		} catch (AxisFault e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+        
+        this.listContainer.setVisible(false);
+        this.cartContainer.setVisible(false);
+        this.loginContainer.setVisible(true);
+        
     }
 
 }
