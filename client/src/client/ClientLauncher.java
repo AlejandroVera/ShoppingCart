@@ -2,6 +2,8 @@ package client;
 
 import java.net.URL;
 
+import client.gui.GlobalContainer;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.stage.WindowEvent;
 public class ClientLauncher extends Application {
 
 	private Stage primaryStage;
+	public static GlobalContainer globalContainer;
 	
 	
 	@Override
@@ -38,6 +41,8 @@ public class ClientLauncher extends Application {
 		URL resource = getClass().getResource("gui/GlobalContainer.fxml");
 		loader.setLocation(resource);
 		Parent root = (Parent) loader.load(resource.openStream());
+		
+		globalContainer = loader.getController();
 		
 		//Mostramos la nueva vista
 		Scene scene = new Scene(root, this.primaryStage.getWidth(), this.primaryStage.getHeight());

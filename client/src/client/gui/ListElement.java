@@ -2,7 +2,10 @@ package client.gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import client.ClientLauncher;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -42,10 +45,15 @@ public class ListElement {
 
     @FXML
     private Label unidades;
+    
+    private Parent root;
+    private boolean enCarro = false;
+    private String product = "";
 
-
-    @FXML
+	@FXML
     void modificarCarro(MouseEvent event) {
+		Integer amount = Integer.parseInt(udsToAdd.getText());
+		ClientLauncher.globalContainer.addToCart(this.product, amount);
     }
 
     @FXML
@@ -69,5 +77,43 @@ public class ListElement {
 
 
     }
+
+	public Parent getRoot() {
+		return root;
+	}
+
+	public void setRoot(Parent root) {
+		this.root = root;
+	}
+	
+    public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		nombre.setText(product);
+		this.product = product;
+	}
+
+	public boolean isEnCarro() {
+		return enCarro;
+	}
+
+	/**
+	 * Setter para indicar cómo se debe pintar esta entrada
+	 * @param enCarro
+	 */
+	public void setEnCarro(boolean enCarro) {
+		
+		//TODO: rellenar la info de la entrada con llamadas al servicio
+		if(enCarro){ //Es un elemento del carro
+			
+			
+		}else{ //Es un elemento de la lista de productos
+			
+		}
+		this.enCarro = enCarro;
+	}
+    
 
 }

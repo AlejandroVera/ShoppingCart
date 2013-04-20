@@ -57,14 +57,18 @@ public class ShoppingCartWSSkeleton {
 		checkSession();
 
 		ProductsAmountsList resp = new ProductsAmountsList();
-
+		ProductAmountType[] array = new ProductAmountType[cart.size()];
+		
 		//Rellenamos la lista a devolver
+		int i = 0;
 		for(CartItem item : cart){
 			ProductAmountType temp = new ProductAmountType();
 			temp.setProduct(item.product);
 			temp.setAmount(item.amount);
-			resp.addProductAmountInfo(temp);
+			array[i++] = temp;
 		}
+	
+		resp.setProductAmountInfo(array);
 
 		return resp;
 
@@ -89,6 +93,7 @@ public class ShoppingCartWSSkeleton {
 			throw new ProductUnknownError();
 
 		ProductAvailableUnits resp = new ProductAvailableUnits();
+		resp.setProductAvailableUnits(0);
 
 		//Solicitamos al warehouse el numero de unidades (con las pertinentes conversiones de clases)
 		WarehouseInformationWSStub.ProductName product = new WarehouseInformationWSStub.ProductName();
@@ -193,17 +198,16 @@ public class ShoppingCartWSSkeleton {
 		checkSession();
 
 		ProductsList resp = new ProductsList();
+		String[] lista = new String[0];
 		try {
 			//Obtenemos la lista de productos del warehouse
-			String[] lista = this.warehouse.getProductsList().getProduct();
-
-			//Añadimos los productos a la respuesta del metodo
-			for(int x=0; x< lista.length; ++x)
-				resp.addProduct(lista[x]);
+			lista = this.warehouse.getProductsList().getProduct();
 
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		
+		resp.setProduct(lista);
 
 		return resp;
 
