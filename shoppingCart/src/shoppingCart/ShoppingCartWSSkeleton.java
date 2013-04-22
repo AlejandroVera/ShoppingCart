@@ -324,10 +324,11 @@ public class ShoppingCartWSSkeleton {
 	 */
 
 	public Budget buy() throws NotValidSessionError, NotEnoughBudgetError {
-		double coste = this.costOfCart().getCostOfCart();
-		double presupuesto = this.budget;
 		
-		checkSession();
+		checkSession();		
+		double coste = this.costOfCart().getCostOfCart();
+		double presupuesto = this.budget().getBudget();		
+		
 		//Si no tenemos suficiente dinero lanzamos excepcion
 		if (presupuesto < coste)
 			throw new NotEnoughBudgetError();
