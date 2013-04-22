@@ -53,15 +53,22 @@ public class ListElement {
 	@FXML
     void modificarCarro(MouseEvent event) {
 		Integer amount = Integer.parseInt(udsToAdd.getText());
-		ClientLauncher.globalContainer.addToCart(this.product, amount);
+		ClientLauncher.globalContainer.addToCart(this.product, amount, this.enCarro);
     }
 
     @FXML
     void restarUnidad(MouseEvent event) {
+    	Integer amount = Integer.parseInt(udsToAdd.getText());
+    	amount = amount+1;
+    	udsToAdd.setText(amount.toString());
+    	
     }
 
     @FXML
     void sumarUnidad(MouseEvent event) {
+    	Integer amount = Integer.parseInt(udsToAdd.getText());
+    	amount = amount+1;
+    	udsToAdd.setText(amount.toString());
     }
 
     @FXML
@@ -74,7 +81,7 @@ public class ListElement {
         assert sumarIcon != null : "fx:id=\"sumarIcon\" was not injected: check your FXML file 'element.fxml'.";
         assert udsToAdd != null : "fx:id=\"udsToAdd\" was not injected: check your FXML file 'element.fxml'.";
         assert unidades != null : "fx:id=\"unidades\" was not injected: check your FXML file 'element.fxml'.";
-
+        
 
     }
 
@@ -106,14 +113,23 @@ public class ListElement {
 	public void setEnCarro(boolean enCarro) {
 		
 		//TODO: rellenar la info de la entrada con llamadas al servicio
+		this.precio.setText(String.valueOf(
+				ClientLauncher.globalContainer.getProductPrice(this.getProduct())) +
+				" €");
 		if(enCarro){ //Es un elemento del carro
-			
+			this.sumarIcon.setVisible(false);
+			this.restarIcon.setVisible(true);
+			this.botonAccion.setText("Quitar del carro");			
 			
 		}else{ //Es un elemento de la lista de productos
-			
+			this.sumarIcon.setVisible(false);
+			this.restarIcon.setVisible(true);
+			this.botonAccion.setText("Añadir al carro");
 		}
 		this.enCarro = enCarro;
 	}
-    
+    public void setAmount (int amount){
+    	this.unidades.setText(String.valueOf(amount)+ " uds");
+    }
 
 }

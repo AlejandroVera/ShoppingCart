@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import org.apache.axis2.AxisFault;
 
+import client.NotEnoughBudgetError;
 import client.NotEnoughUnitsError;
 import client.NotValidSessionError;
 import client.ProductUnknownError;
@@ -18,6 +19,8 @@ import client.ShoppingCartWSStub.Login;
 import client.ShoppingCartWSStub.LoginResponse;
 import client.ShoppingCartWSStub.ProductAmount;
 import client.ShoppingCartWSStub.ProductAmountType;
+import client.ShoppingCartWSStub.ProductAvailableUnits;
+import client.ShoppingCartWSStub.ProductName;
 import client.ShoppingCartWSStub.ProductsAmountsList;
 import client.ShoppingCartWSStub.ProductsList;
 
@@ -37,109 +40,109 @@ import javafx.scene.layout.VBox;
 
 public class GlobalContainer {
 
-    @FXML
-    private ResourceBundle resources;
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private URL location;
+	@FXML
+	private URL location;
 
-    @FXML
-    private AnchorPane background;
+	@FXML
+	private AnchorPane background;
 
-    @FXML
-    private Label budgetLabel;
+	@FXML
+	private Label budgetLabel;
 
-    @FXML
-    private Button carroButton;
+	@FXML
+	private Button carroButton;
 
-    @FXML
-    private AnchorPane cartContainer;
+	@FXML
+	private AnchorPane cartContainer;
 
-    @FXML
-    private AnchorPane cartPopup;
+	@FXML
+	private AnchorPane cartPopup;
 
-    @FXML
-    private AnchorPane errorContainer;
+	@FXML
+	private AnchorPane errorContainer;
 
-    @FXML
-    private TextArea errorMes;
+	@FXML
+	private TextArea errorMes;
 
-    @FXML
-    private AnchorPane listContainer;
+	@FXML
+	private AnchorPane listContainer;
 
-    @FXML
-    private VBox listaAlmacen;
+	@FXML
+	private VBox listaAlmacen;
 
-    @FXML
-    private VBox listaCarro;
+	@FXML
+	private VBox listaCarro;
 
-    @FXML
-    private AnchorPane loginContainer;
+	@FXML
+	private AnchorPane loginContainer;
 
-    @FXML
-    private Button logoutButton;
+	@FXML
+	private Button logoutButton;
 
-    @FXML
-    private PasswordField passwordLoginField;
+	@FXML
+	private PasswordField passwordLoginField;
 
-    @FXML
-    private Button submitLogin;
+	@FXML
+	private Button submitLogin;
 
-    @FXML
-    private GridPane tablaLogin;
+	@FXML
+	private GridPane tablaLogin;
 
-    @FXML
-    private Label totalNumLabel;
+	@FXML
+	private Label totalNumLabel;
 
-    @FXML
-    private TextField userLoginField;
-    
-    
-    private ShoppingCartWSStub shopCart;
-    private HashMap<String, ListElement> itemList;
-    private HashMap<String, ListElement> cartList;
+	@FXML
+	private TextField userLoginField;
 
-    @FXML
-    void cerrarError(MouseEvent event) {
-    	errorContainer.setVisible(false);
-    }
-    
-    @FXML
-    void closeCartPopup(MouseEvent event) {
-    	cartContainer.setVisible(false);
-    }
 
-    @FXML
-    void login(MouseEvent event) {
-    	Login login = new Login();
-    	login.setUsername(userLoginField.getText());
-    	login.setPassword(passwordLoginField.getText());
-    	try {
+	private ShoppingCartWSStub shopCart;
+	private HashMap<String, ListElement> itemList;
+	private HashMap<String, ListElement> cartList;
+
+	@FXML
+	void cerrarError(MouseEvent event) {
+		errorContainer.setVisible(false);
+	}
+
+	@FXML
+	void closeCartPopup(MouseEvent event) {
+		cartContainer.setVisible(false);
+	}
+
+	@FXML
+	void login(MouseEvent event) {
+		Login login = new Login();
+		login.setUsername(userLoginField.getText());
+		login.setPassword(passwordLoginField.getText());
+		try {
 			LoginResponse resp = this.shopCart.login(login);
-			
+
 			if(resp.getLoginResponse()){ //Autorizado
-				
+
 				//Rellenamos la lista de productos del almacen
-		    	clear(listaAlmacen);
-		    	
+				clear(listaAlmacen);
+
 				ProductsList p = this.shopCart.getProductsList();
-				
+
 				String[] products = p.getProduct();
 				if(products != null){
 					for(int i = 0; i < products.length; ++i){
-						addEntry(products[i], listaAlmacen);
+						addEntry(products[i], listaAlmacen, this.getProductUnits(products[i]));
 					}
 				}
-				
+
 				//Actrualizar el presupuesto
 				Budget budget = this.shopCart.budget();
 				budgetLabel.setText(budget.getBudget() + " €");
-				
+
 				//Finalmente mostramos el contenedor
 				listContainer.setVisible(true);
-		        cartContainer.setVisible(false);
-		        loginContainer.setVisible(false);
-		        
+				cartContainer.setVisible(false);
+				loginContainer.setVisible(false);
+
 			}else{ //No autorizado
 				errorContainer.setVisible(true);
 			}
@@ -148,74 +151,86 @@ public class GlobalContainer {
 		} catch (NotValidSessionError e) {
 			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
 		}
-    	
-    }
 
-    @FXML
-    void logout(MouseEvent event) {
-    	
-    	try {
+	}
+
+	@FXML
+	void logout(MouseEvent event) {
+
+		try {
 			this.shopCart.logout();
-			
+
 			listContainer.setVisible(false);
-	        cartContainer.setVisible(false);
-	        loginContainer.setVisible(true);
+			cartContainer.setVisible(false);
+			loginContainer.setVisible(true);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-    	
-    }
 
-    @FXML
-    void realizarCompra(MouseEvent event) {
-    }
+	}
 
-    @FXML
-    void showCarro(MouseEvent event) {
-    	
-    	clear(listaCarro);
-    	
-    	try {
+	@FXML
+	void realizarCompra(MouseEvent event) {
+		try{
+			Budget bu = this.shopCart.buy();
+			this.budgetLabel.setText(bu.getBudget()+" €");
+			clear(listaCarro);
+
+		}catch (RemoteException e){
+			e.printStackTrace();
+		}catch (NotEnoughBudgetError e){
+			System.err.println("No tienes suficiente dinero para realizar la compra.");
+		} catch (NotValidSessionError e) {
+			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
+		}
+	}
+
+	@FXML
+	void showCarro(MouseEvent event) {
+
+		clear(listaCarro);
+
+		try {
 			ProductsAmountsList p = this.shopCart.productsInCart();
-			
+
 			ProductAmountType[] products = p.getProductAmountInfo();
-			
+
 			if(products != null){
 				for(int i = 0; i < products.length; ++i){
-					addEntry(products[i].getProduct(), listaCarro);
+					addEntry(products[i].getProduct(), listaCarro, products[i].getAmount());
 				}
 			}
-			
+
 			cartContainer.setVisible(true);
-			
+
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotValidSessionError e) {
 			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
 		}
-    	
-    	
-    }
 
-    @FXML
-    void initialize() {
-        assert background != null : "fx:id=\"background\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert budgetLabel != null : "fx:id=\"budgetLabel\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert carroButton != null : "fx:id=\"carroButton\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert cartContainer != null : "fx:id=\"cartContainer\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert cartPopup != null : "fx:id=\"cartPopup\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert listContainer != null : "fx:id=\"listContainer\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert listaAlmacen != null : "fx:id=\"listaAlmacen\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert listaCarro != null : "fx:id=\"listaCarro\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert loginContainer != null : "fx:id=\"loginContainer\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert passwordLoginField != null : "fx:id=\"passwordLoginField\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert submitLogin != null : "fx:id=\"submitLogin\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert tablaLogin != null : "fx:id=\"tablaLogin\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert totalNumLabel != null : "fx:id=\"totalNumLabel\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
-        assert userLoginField != null : "fx:id=\"userLoginField\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
 
-        try {
+	}
+
+	@FXML
+	void initialize() {
+		assert background != null : "fx:id=\"background\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert budgetLabel != null : "fx:id=\"budgetLabel\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert carroButton != null : "fx:id=\"carroButton\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert cartContainer != null : "fx:id=\"cartContainer\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert cartPopup != null : "fx:id=\"cartPopup\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert listContainer != null : "fx:id=\"listContainer\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert listaAlmacen != null : "fx:id=\"listaAlmacen\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert listaCarro != null : "fx:id=\"listaCarro\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert loginContainer != null : "fx:id=\"loginContainer\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert passwordLoginField != null : "fx:id=\"passwordLoginField\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert submitLogin != null : "fx:id=\"submitLogin\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert tablaLogin != null : "fx:id=\"tablaLogin\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert totalNumLabel != null : "fx:id=\"totalNumLabel\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+		assert userLoginField != null : "fx:id=\"userLoginField\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
+
+		try {
 			this.shopCart = new ShoppingCartWSStub();
 			this.shopCart._getServiceClient().engageModule("addressing");
 			this.shopCart._getServiceClient().getOptions().setManageSession(true);
@@ -223,31 +238,39 @@ public class GlobalContainer {
 			e.printStackTrace();
 			System.exit(1);
 		}
-        
-        this.itemList = new HashMap<String, ListElement>();
-        this.cartList = new HashMap<String, ListElement>();
-        
-        this.listContainer.setVisible(false);
-        this.cartContainer.setVisible(false);
-        this.loginContainer.setVisible(true);
-        
-    }
-    
-    //TODO: añadir/quitar cierta cantidad de un producto que ya estaba en el carrito
-    
-    public void addToCart(String name, int amount){
-    	
-    	ListElement elemControl = cartList.get(name);
-    	
-    	if(elemControl == null){ //No está en el carro
-    		ProductAmount prod = new ProductAmount();
-    		ProductAmountType pro = new ProductAmountType();
-    		pro.setProduct(name);
-    		pro.setAmount(amount);
-    		prod.setProductAmount(pro);
-    		try {
-				shopCart.addToCart(prod);
-				addEntry(name, listaCarro);
+
+		this.itemList = new HashMap<String, ListElement>();
+		this.cartList = new HashMap<String, ListElement>();
+
+		this.listContainer.setVisible(false);
+		this.cartContainer.setVisible(false);
+		this.loginContainer.setVisible(true);
+
+	}
+
+	//TODO: añadir/quitar cierta cantidad de un producto que ya estaba en el carrito
+
+	public void addToCart(String name, int amount, boolean remove){
+
+		ListElement elemControl = cartList.get(name);
+		ProductAmount prod = new ProductAmount();
+		ProductAmountType pro = new ProductAmountType();
+		pro.setProduct(name);
+		pro.setAmount(amount);
+		prod.setProductAmount(pro);
+
+		ProductAvailableUnits units = new ProductAvailableUnits();
+		int unidades;
+		if(!remove){//Queremos añadirlo al carro
+		
+			try {
+				units =shopCart.addToCart(prod);
+				unidades= units.getProductAvailableUnits();
+				if (elemControl == null)//No está en el carro
+					addEntry(name, listaCarro, unidades);
+				else
+					elemControl.setAmount(unidades);
+					
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			} catch (ProductUnknownError e) {
@@ -257,76 +280,111 @@ public class GlobalContainer {
 			} catch (NotValidSessionError e) {
 				e.printStackTrace();
 			}
-    		
-    	}else{ //Ya estaba en el carro
-    		
-    	}
-    	
-    	
-    }
-    
-    private void addEntry(String name, VBox where) {
-    	try {
+
+		}else if (remove){ //Ya estaba en el carro y lo vamos a borrar
+			units =shopCart.addToCart(prod);
+			unidades= units.getProductAvailableUnits();
 			
-    		
-    		FXMLLoader loader = new FXMLLoader();
-        	URL resource = getClass().getResource("element.fxml");
-        	loader.setLocation(resource);
-    		Parent root = (Parent) loader.load(resource.openStream());
-    		ListElement controller = (ListElement) loader.getController();
-    		
-    		controller.setRoot(root);
-    		controller.setProduct(name);
-			
+			if (unidades>0)
+				elemControl.setAmount(unidades);
+			else
+				removeEntry(name, listaCarro);			
+		}
+
+	}
+
+	private void addEntry(String name, VBox where, int amount) {
+		try {
+
+
+			FXMLLoader loader = new FXMLLoader();
+			URL resource = getClass().getResource("element.fxml");
+			loader.setLocation(resource);
+			Parent root = (Parent) loader.load(resource.openStream());
+			ListElement controller = (ListElement) loader.getController();
+
+			controller.setRoot(root);
+			controller.setProduct(name);
+
 			//Lo añadimos a la tabla de asociacion
-    		if(where.equals(listaAlmacen)){
-    			this.itemList.put(name, controller);
-    			controller.setEnCarro(false);
-    		}else{
-    			this.cartList.put(name, controller);
-    			controller.setEnCarro(true);
-    		}
-			
-    		where.getChildren().add(root);
-    		
+			if(where.equals(listaAlmacen)){
+				this.itemList.put(name, controller);
+				controller.setEnCarro(false);
+				controller.setAmount(amount);
+			}else{
+				this.cartList.put(name, controller);
+				controller.setEnCarro(true);
+				controller.setAmount(amount);
+			}
+
+			where.getChildren().add(root);
+
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
-    
-    private void removeEntry(String name, VBox where){
-    	
-    	HashMap<String, ListElement> lista;
-    	
-    	if(where.equals(listaAlmacen)){
-    		lista = this.itemList;
-		}else{
-			lista = this.cartList;
-		}
-    	
-    	ListElement element = lista.remove(name);
-    	if(element != null){
-    		where.getChildren().remove(element);
-    	}
-    	
-    }
-    
-    private void clear(VBox where){
-    	
-    	HashMap<String, ListElement> lista;
-    	
-    	if(where.equals(listaAlmacen)){
-    		lista = this.itemList;
-		}else{
-			lista = this.cartList;
-		}
-    	    	
-    	for(Entry<String, ListElement> element : lista.entrySet()){
-    		where.getChildren().remove(element.getValue().getRoot());
-    	}
-    	
-    	lista.clear();
-    }
+	}
 
+	private void removeEntry(String name, VBox where){
+
+		HashMap<String, ListElement> lista;
+
+		if(where.equals(listaAlmacen)){
+			lista = this.itemList;
+		}else{
+			lista = this.cartList;
+		}
+
+		ListElement element = lista.remove(name);
+		if(element != null){
+			where.getChildren().remove(element);
+		}
+
+	}
+
+	private void clear(VBox where){
+
+		HashMap<String, ListElement> lista;
+
+		if(where.equals(listaAlmacen)){
+			lista = this.itemList;
+		}else{
+			lista = this.cartList;
+		}
+
+		for(Entry<String, ListElement> element : lista.entrySet()){
+			where.getChildren().remove(element.getValue().getRoot());
+		}
+
+		lista.clear();
+	}
+
+	public double getProductPrice(String product){
+		try{
+			ProductName p = new ProductName();
+			p.setProductName(product);
+			return this.shopCart.getProductPrice(p).getProductPrice();		
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (ProductUnknownError e) {
+			e.printStackTrace();		
+		} catch (NotValidSessionError e) {
+			e.printStackTrace();
+		}
+	}
+
+	//Devuelve las unidades en el almacen
+	public int getProductUnits (String product){
+		try{
+			ProductName p = new ProductName();
+			p.setProductName(product);
+			return this.shopCart.getProductAvailableUnits(p).getProductAvailableUnits();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (ProductUnknownError e) {
+			e.printStackTrace();		
+		} catch (NotValidSessionError e) {
+			e.printStackTrace();
+		}
+	}
 }
