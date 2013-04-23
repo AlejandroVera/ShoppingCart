@@ -282,7 +282,17 @@ public class GlobalContainer {
 			}
 
 		}else if (remove){ //Ya estaba en el carro y lo vamos a borrar
-			units =shopCart.addToCart(prod);
+			try {
+				units =shopCart.addToCart(prod);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			} catch (ProductUnknownError e) {
+				e.printStackTrace();
+			} catch (NotEnoughUnitsError e) {
+				e.printStackTrace();
+			} catch (NotValidSessionError e) {
+				e.printStackTrace();
+			}
 			unidades= units.getProductAvailableUnits();
 			
 			if (unidades>0)
@@ -360,10 +370,11 @@ public class GlobalContainer {
 	}
 
 	public double getProductPrice(String product){
+		double a = -1;
 		try{
 			ProductName p = new ProductName();
 			p.setProductName(product);
-			return this.shopCart.getProductPrice(p).getProductPrice();		
+			a= this.shopCart.getProductPrice(p).getProductPrice();		
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (ProductUnknownError e) {
@@ -371,14 +382,16 @@ public class GlobalContainer {
 		} catch (NotValidSessionError e) {
 			e.printStackTrace();
 		}
+		return a;
 	}
 
 	//Devuelve las unidades en el almacen
 	public int getProductUnits (String product){
+		int units=-1;
 		try{
 			ProductName p = new ProductName();
 			p.setProductName(product);
-			return this.shopCart.getProductAvailableUnits(p).getProductAvailableUnits();
+			units= this.shopCart.getProductAvailableUnits(p).getProductAvailableUnits();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (ProductUnknownError e) {
@@ -386,5 +399,6 @@ public class GlobalContainer {
 		} catch (NotValidSessionError e) {
 			e.printStackTrace();
 		}
+		return units;
 	}
 }
