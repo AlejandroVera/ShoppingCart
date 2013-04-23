@@ -14,7 +14,7 @@
         <GridPane prefHeight="30.0" prefWidth="710.0">
           <children>
             <Label fx:id="nombre" text="Queso de Burgos especial extra" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="precio" prefWidth="41.0" text="5 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="precio" contentDisplay="CENTER" prefWidth="76.0" text="100000 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label fx:id="unidades" text="500 uds." GridPane.columnIndex="5" GridPane.rowIndex="1" />
             <TextField fx:id="udsToAdd" alignment="CENTER" prefHeight="23.999900000002526" prefWidth="36.0" promptText="" text="0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
             <Button fx:id="botonAccion" minHeight="22.0" mnemonicParsing="false" onMouseClicked="#modificarCarro" prefHeight="29.0" text="Añadir al carro" GridPane.columnIndex="9" GridPane.rowIndex="1">
@@ -39,10 +39,10 @@
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="9.0" prefWidth="11.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="234.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="0.0" prefWidth="23.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="236.0" minWidth="5.0" prefWidth="56.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="236.0" minWidth="4.0" prefWidth="17.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="215.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="0.0" prefWidth="12.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="236.0" minWidth="5.0" prefWidth="91.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="236.0" minWidth="4.0" prefWidth="12.0" />
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="82.0" />
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="295.0" minWidth="5.0" prefWidth="22.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="295.0" minWidth="0.0" prefWidth="41.0" />

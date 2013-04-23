@@ -122,8 +122,8 @@ public class ListElement {
 			this.botonAccion.setText("Quitar del carro");			
 			
 		}else{ //Es un elemento de la lista de productos
-			this.sumarIcon.setVisible(false);
-			this.restarIcon.setVisible(true);
+			this.sumarIcon.setVisible(true);
+			this.restarIcon.setVisible(false);
 			this.botonAccion.setText("Añadir al carro");
 		}
 		this.enCarro = enCarro;

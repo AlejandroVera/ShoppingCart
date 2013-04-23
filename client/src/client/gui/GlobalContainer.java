@@ -32,6 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -66,6 +67,9 @@ public class GlobalContainer {
 
 	@FXML
 	private TextArea errorMes;
+	
+    @FXML
+    private TitledPane errorTitle;
 
 	@FXML
 	private AnchorPane listContainer;
@@ -147,7 +151,7 @@ public class GlobalContainer {
 				errorContainer.setVisible(true);
 			}
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			errorSesion();
 		} catch (NotValidSessionError e) {
 			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
 		}
@@ -164,7 +168,7 @@ public class GlobalContainer {
 			cartContainer.setVisible(false);
 			loginContainer.setVisible(true);
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			errorSesion();
 		}
 
 	}
@@ -175,9 +179,9 @@ public class GlobalContainer {
 			Budget bu = this.shopCart.buy();
 			this.budgetLabel.setText(bu.getBudget()+" €");
 			clear(listaCarro);
-
+			
 		}catch (RemoteException e){
-			e.printStackTrace();
+			errorSesion();
 		}catch (NotEnoughBudgetError e){
 			System.err.println("No tienes suficiente dinero para realizar la compra.");
 		} catch (NotValidSessionError e) {
@@ -204,7 +208,7 @@ public class GlobalContainer {
 			cartContainer.setVisible(true);
 
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			errorSesion();
 		} catch (NotValidSessionError e) {
 			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
 		}
@@ -272,7 +276,7 @@ public class GlobalContainer {
 					elemControl.setAmount(unidades);
 					
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				errorSesion();
 			} catch (ProductUnknownError e) {
 				e.printStackTrace();
 			} catch (NotEnoughUnitsError e) {
@@ -283,13 +287,11 @@ public class GlobalContainer {
 
 		}else if (remove){ //Ya estaba en el carro y lo vamos a borrar
 			try {
-				units =shopCart.addToCart(prod);
+				units =shopCart.removeFromCart(prod);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				errorSesion();
 			} catch (ProductUnknownError e) {
-				e.printStackTrace();
-			} catch (NotEnoughUnitsError e) {
-				e.printStackTrace();
+				e.printStackTrace();			
 			} catch (NotValidSessionError e) {
 				e.printStackTrace();
 			}
@@ -376,7 +378,7 @@ public class GlobalContainer {
 			p.setProductName(product);
 			a= this.shopCart.getProductPrice(p).getProductPrice();		
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			errorSesion();
 		} catch (ProductUnknownError e) {
 			e.printStackTrace();		
 		} catch (NotValidSessionError e) {
@@ -393,12 +395,25 @@ public class GlobalContainer {
 			p.setProductName(product);
 			units= this.shopCart.getProductAvailableUnits(p).getProductAvailableUnits();
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			errorSesion();
 		} catch (ProductUnknownError e) {
 			e.printStackTrace();		
 		} catch (NotValidSessionError e) {
 			e.printStackTrace();
 		}
 		return units;
+	}
+	
+	public void showMes (String title, String mes){
+		this.errorMes.setText(mes);
+		this.errorTitle.setText(title);
+		errorContainer.setVisible(true);		
+	}
+	
+	public void errorSesion(){
+		showMes ("Error", "Se ha sobrepasado el límite de 30 seg, perdiendo la sesion SOAP.");
+		listContainer.setVisible(false);
+		cartContainer.setVisible(false);
+		loginContainer.setVisible(true);
 	}
 }

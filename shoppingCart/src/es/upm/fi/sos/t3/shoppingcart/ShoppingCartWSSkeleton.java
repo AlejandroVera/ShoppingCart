@@ -290,6 +290,8 @@ public class ShoppingCartWSSkeleton {
 			cart.set(indice, item);			
 		}
 		//Si no, lo añadimos a la lista
+		else if (cantidad ==0)//Si se añade con 0 que no se añada al carro con 0 uds
+			num=0;
 		else{
 			item = new CartItem(nombre,cantidad);
 			cart.add(item);
