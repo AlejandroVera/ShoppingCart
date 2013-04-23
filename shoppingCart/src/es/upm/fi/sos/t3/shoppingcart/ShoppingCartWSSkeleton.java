@@ -297,7 +297,7 @@ public class ShoppingCartWSSkeleton {
 			cart.add(item);
 			num=cantidad;
 		}
-
+		
 		ProductAvailableUnits units = new ProductAvailableUnits();
 		units.setProductAvailableUnits(num);
 		return units;

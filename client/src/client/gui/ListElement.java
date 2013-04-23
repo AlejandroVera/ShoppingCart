@@ -54,6 +54,7 @@ public class ListElement {
     void modificarCarro(MouseEvent event) {
 		Integer amount = Integer.parseInt(udsToAdd.getText());
 		ClientLauncher.globalContainer.addToCart(this.product, amount, this.enCarro);
+		ClientLauncher.globalContainer.costeTotal();
     }
 
     @FXML
@@ -129,7 +130,7 @@ public class ListElement {
 		this.enCarro = enCarro;
 	}
     public void setAmount (int amount){
-    	this.unidades.setText(String.valueOf(amount)+ " uds");
+    	this.unidades.setText(String.valueOf(amount)+ " uds");    	
     }
 
 }

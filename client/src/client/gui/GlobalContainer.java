@@ -150,11 +150,11 @@ public class GlobalContainer {
 			}else{ //No autorizado
 				errorContainer.setVisible(true);
 			}
-		} catch (RemoteException e) {
-			errorSesion();
+				
 		} catch (NotValidSessionError e) {
 			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
-		}
+		} catch (RemoteException e) {
+			errorSesion();	}
 
 	}
 
@@ -178,14 +178,17 @@ public class GlobalContainer {
 		try{
 			Budget bu = this.shopCart.buy();
 			this.budgetLabel.setText(bu.getBudget()+" €");
+			this.costeTotal();
 			clear(listaCarro);
 			
-		}catch (RemoteException e){
-			errorSesion();
+		
 		}catch (NotEnoughBudgetError e){
+			showMes ("Error", "No tienes suficiente dinero para realizar la compra.");
 			System.err.println("No tienes suficiente dinero para realizar la compra.");
 		} catch (NotValidSessionError e) {
 			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
+		}catch (RemoteException e){
+			errorSesion();
 		}
 	}
 
@@ -204,13 +207,14 @@ public class GlobalContainer {
 					addEntry(products[i].getProduct(), listaCarro, products[i].getAmount());
 				}
 			}
-
+			costeTotal();
 			cartContainer.setVisible(true);
 
-		} catch (RemoteException e) {
-			errorSesion();
+
 		} catch (NotValidSessionError e) {
 			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
+		} catch (RemoteException e) {
+			errorSesion();
 		}
 
 
@@ -252,7 +256,6 @@ public class GlobalContainer {
 
 	}
 
-	//TODO: añadir/quitar cierta cantidad de un producto que ya estaba en el carrito
 
 	public void addToCart(String name, int amount, boolean remove){
 
@@ -275,32 +278,33 @@ public class GlobalContainer {
 				else
 					elemControl.setAmount(unidades);
 					
-			} catch (RemoteException e) {
-				errorSesion();
 			} catch (ProductUnknownError e) {
 				e.printStackTrace();
 			} catch (NotEnoughUnitsError e) {
-				e.printStackTrace();
+				this.showMes("Error", "No hay suficientes unidades en el almacén.");
 			} catch (NotValidSessionError e) {
 				e.printStackTrace();
+			} catch (RemoteException e) {
+				errorSesion();
 			}
 
 		}else if (remove){ //Ya estaba en el carro y lo vamos a borrar
 			try {
 				units =shopCart.removeFromCart(prod);
-			} catch (RemoteException e) {
-				errorSesion();
+			
 			} catch (ProductUnknownError e) {
 				e.printStackTrace();			
 			} catch (NotValidSessionError e) {
 				e.printStackTrace();
-			}
-			unidades= units.getProductAvailableUnits();
+			} catch (RemoteException e) {
+				errorSesion();}
+			unidades= units.getProductAvailableUnits();			
 			
 			if (unidades>0)
 				elemControl.setAmount(unidades);
-			else
-				removeEntry(name, listaCarro);			
+			else{
+				
+				removeEntry(name, this.listaCarro);}			
 		}
 
 	}
@@ -349,7 +353,7 @@ public class GlobalContainer {
 
 		ListElement element = lista.remove(name);
 		if(element != null){
-			where.getChildren().remove(element);
+			where.getChildren().remove(element.getRoot());
 		}
 
 	}
@@ -377,13 +381,12 @@ public class GlobalContainer {
 			ProductName p = new ProductName();
 			p.setProductName(product);
 			a= this.shopCart.getProductPrice(p).getProductPrice();		
-		} catch (RemoteException e) {
-			errorSesion();
 		} catch (ProductUnknownError e) {
 			e.printStackTrace();		
 		} catch (NotValidSessionError e) {
 			e.printStackTrace();
-		}
+		} catch (RemoteException e) {
+			errorSesion();}
 		return a;
 	}
 
@@ -394,13 +397,13 @@ public class GlobalContainer {
 			ProductName p = new ProductName();
 			p.setProductName(product);
 			units= this.shopCart.getProductAvailableUnits(p).getProductAvailableUnits();
-		} catch (RemoteException e) {
-			errorSesion();
+
 		} catch (ProductUnknownError e) {
 			e.printStackTrace();		
 		} catch (NotValidSessionError e) {
 			e.printStackTrace();
-		}
+		} catch (RemoteException e) {
+			errorSesion();}
 		return units;
 	}
 	
@@ -415,5 +418,16 @@ public class GlobalContainer {
 		listContainer.setVisible(false);
 		cartContainer.setVisible(false);
 		loginContainer.setVisible(true);
+	}	
+	
+	public void costeTotal(){
+		try {
+			double coste = this.shopCart.costOfCart().getCostOfCart();
+			this.totalNumLabel.setText(coste + " €");
+
+		} catch (NotValidSessionError e) {
+			e.printStackTrace();
+		}catch (RemoteException e) {}
+	
 	}
 }
