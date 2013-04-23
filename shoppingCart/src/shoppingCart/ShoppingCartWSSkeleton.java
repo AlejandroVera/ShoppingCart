@@ -88,10 +88,6 @@ public class ShoppingCartWSSkeleton {
 		//Revisamos que estemos logueados
 		checkSession();
 
-		//Comprobamos que el producto exista
-		if(!checkProductExistence(productName.getProductName()))
-			throw new ProductUnknownError();
-
 		ProductAvailableUnits resp = new ProductAvailableUnits();
 		resp.setProductAvailableUnits(0);
 
@@ -101,6 +97,11 @@ public class ShoppingCartWSSkeleton {
 
 		try {
 			WarehouseInformationWSStub.ProductAvailableUnits numberUnits = this.warehouse.getProductAvailableUnits(product);
+			
+			//Comprobamos que el producto exista
+			if(numberUnits.getProductAvailableUnits() < 0)
+				throw new ProductUnknownError();
+			
 			resp.setProductAvailableUnits(numberUnits.getProductAvailableUnits());
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -397,10 +398,6 @@ public class ShoppingCartWSSkeleton {
 		//Revisamos que estemos logueados
 		checkSession();
 
-		//Comprobamos que el producto exista
-		if(!checkProductExistence(productName11.getProductName()))
-			throw new ProductUnknownError();
-
 		ProductPrice precio = new ProductPrice();
 
 		//Obtenemos el precio del producto
@@ -409,13 +406,18 @@ public class ShoppingCartWSSkeleton {
 
 		try {
 			WarehouseInformationWSStub.ProductPrice productPrecio = this.warehouse.getProductPrice(product);
+			
+			//Comprobamos que el producto exista
+			if(productPrecio.getProductPrice() < 0)
+				throw new ProductUnknownError();
+			
 			precio.setProductPrice(productPrecio.getProductPrice());
+			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 
 		return precio;
-
 
 	}
 
