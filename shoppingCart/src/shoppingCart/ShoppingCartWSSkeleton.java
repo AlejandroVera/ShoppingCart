@@ -338,9 +338,7 @@ public class ShoppingCartWSSkeleton {
 			this.budget=presupuesto-coste;
 			this.cart = new LinkedList<CartItem>();
 		}
-		Budget bud = new Budget();
-		bud.setBudget(this.budget);
-		return bud;
+		return budget();
 	}
 
 	/**
@@ -371,10 +369,12 @@ public class ShoppingCartWSSkeleton {
 		//Si esta el item disminuimos su cantidad
 		if (indice!=-1){
 			item = cart.get(indice);
-			if (item.amount>=cantidad){
+			if (item.amount-cantidad>0){
 				num=item.amount-cantidad;
 				item.amount=num;
 				cart.set(indice, item);				
+			}else{//Si se piden quitar mas unidades de las que hay
+				cart.remove(indice);//Lo borramos del carro
 			}
 		}
 		
