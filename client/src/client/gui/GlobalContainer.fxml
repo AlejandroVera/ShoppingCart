@@ -209,7 +209,7 @@
         <URL value="@GlobalContainer.css" />
       </stylesheets>
     </AnchorPane>
-    <AnchorPane id="errorBox" fx:id="errorContainer" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane id="errorBox" fx:id="errorContainer" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
         <HBox id="HBox" alignment="CENTER" prefHeight="600.0" prefWidth="850.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
