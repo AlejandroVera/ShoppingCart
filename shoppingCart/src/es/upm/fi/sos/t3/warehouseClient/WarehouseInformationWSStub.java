@@ -5,7 +5,7 @@
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.5.4  Built on : Dec 19, 2010 (08:18:42 CET)
  */
-        package shoppingCart.warehouseClient;
+        package es.upm.fi.sos.t3.warehouseClient;
 
         
 
@@ -163,9 +163,9 @@
 
                     
 
-                            public  shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits getProductAvailableUnits(
+                            public  es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits getProductAvailableUnits(
 
-                            shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName productName2)
+                            es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName productName2)
                         
 
                     throws java.rmi.RemoteException
@@ -215,11 +215,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.class,
+                                             es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits)object;
+                                        return (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits)object;
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -281,9 +281,9 @@
                 */
                 public  void startgetProductAvailableUnits(
 
-                 shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName productName2,
+                 es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName productName2,
 
-                  final shoppingCart.warehouseClient.WarehouseInformationWSCallbackHandler callback)
+                  final es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSCallbackHandler callback)
 
                 throws java.rmi.RemoteException{
 
@@ -326,10 +326,10 @@
                                 org.apache.axiom.soap.SOAPEnvelope resultEnv = resultContext.getEnvelope();
                                 
                                         java.lang.Object object = fromOM(resultEnv.getBody().getFirstElement(),
-                                                                         shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.class,
+                                                                         es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.class,
                                                                          getEnvelopeNamespaces(resultEnv));
                                         callback.receiveResultgetProductAvailableUnits(
-                                        (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits)object);
+                                        (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits)object);
                                         
                             } catch (org.apache.axis2.AxisFault e) {
                                 callback.receiveErrorgetProductAvailableUnits(e);
@@ -428,9 +428,9 @@
 
                     
 
-                            public  shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice getProductPrice(
+                            public  es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice getProductPrice(
 
-                            shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName productName4)
+                            es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName productName4)
                         
 
                     throws java.rmi.RemoteException
@@ -480,11 +480,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice.class,
+                                             es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice)object;
+                                        return (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice)object;
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -546,9 +546,9 @@
                 */
                 public  void startgetProductPrice(
 
-                 shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName productName4,
+                 es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName productName4,
 
-                  final shoppingCart.warehouseClient.WarehouseInformationWSCallbackHandler callback)
+                  final es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSCallbackHandler callback)
 
                 throws java.rmi.RemoteException{
 
@@ -591,10 +591,10 @@
                                 org.apache.axiom.soap.SOAPEnvelope resultEnv = resultContext.getEnvelope();
                                 
                                         java.lang.Object object = fromOM(resultEnv.getBody().getFirstElement(),
-                                                                         shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice.class,
+                                                                         es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice.class,
                                                                          getEnvelopeNamespaces(resultEnv));
                                         callback.receiveResultgetProductPrice(
-                                        (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice)object);
+                                        (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice)object);
                                         
                             } catch (org.apache.axis2.AxisFault e) {
                                 callback.receiveErrorgetProductPrice(e);
@@ -691,7 +691,7 @@
 
                     
 
-                            public  shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList getProductsList(
+                            public  es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList getProductsList(
 
                             )
                         
@@ -742,11 +742,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList.class,
+                                             es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList)object;
+                                        return (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList)object;
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -808,7 +808,7 @@
 
                  
 
-                  final shoppingCart.warehouseClient.WarehouseInformationWSCallbackHandler callback)
+                  final es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSCallbackHandler callback)
 
                 throws java.rmi.RemoteException{
 
@@ -848,10 +848,10 @@
                                 org.apache.axiom.soap.SOAPEnvelope resultEnv = resultContext.getEnvelope();
                                 
                                         java.lang.Object object = fromOM(resultEnv.getBody().getFirstElement(),
-                                                                         shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList.class,
+                                                                         es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList.class,
                                                                          getEnvelopeNamespaces(resultEnv));
                                         callback.receiveResultgetProductsList(
-                                        (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList)object);
+                                        (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList)object);
                                         
                             } catch (org.apache.axis2.AxisFault e) {
                                 callback.receiveErrorgetProductsList(e);
@@ -2818,12 +2818,12 @@
         }
            
           
-            private  org.apache.axiom.om.OMElement  toOM(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName.MY_QNAME,
+                             return param.getOMElement(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2832,12 +2832,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.MY_QNAME,
+                             return param.getOMElement(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2846,12 +2846,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice.MY_QNAME,
+                             return param.getOMElement(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2860,12 +2860,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList.MY_QNAME,
+                             return param.getOMElement(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2875,14 +2875,14 @@
             }
         
                                     
-                                        private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName param, boolean optimizeContent)
+                                        private  org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory, es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName param, boolean optimizeContent)
                                         throws org.apache.axis2.AxisFault{
 
                                              
                                                     try{
 
                                                             org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-                                                            emptyEnvelope.getBody().addChild(param.getOMElement(shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName.MY_QNAME,factory));
+                                                            emptyEnvelope.getBody().addChild(param.getOMElement(es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName.MY_QNAME,factory));
                                                             return emptyEnvelope;
                                                         } catch(org.apache.axis2.databinding.ADBException e){
                                                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -2912,37 +2912,37 @@
 
         try {
         
-                if (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName.class.equals(type)){
+                if (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName.class.equals(type)){
                 
-                           return shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.class.equals(type)){
+                if (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.class.equals(type)){
                 
-                           return shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName.class.equals(type)){
+                if (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName.class.equals(type)){
                 
-                           return shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductName.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductName.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice.class.equals(type)){
+                if (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice.class.equals(type)){
                 
-                           return shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList.class.equals(type)){
+                if (es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList.class.equals(type)){
                 
-                           return shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }

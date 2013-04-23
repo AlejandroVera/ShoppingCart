@@ -5,7 +5,7 @@
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.5.4  Built on : Dec 19, 2010 (08:18:42 CET)
  */
-package shoppingCart;
+package es.upm.fi.sos.t3.shoppingcart;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -14,12 +14,8 @@ import java.util.List;
 import org.apache.axis2.AxisFault;
 
 import es.upm.fi.sos.t3.shoppingcart.*;
+import es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub;
 
-import shoppingCart.NotEnoughBudgetError;
-import shoppingCart.NotEnoughUnitsError;
-import shoppingCart.NotValidSessionError;
-import shoppingCart.ProductUnknownError;
-import shoppingCart.warehouseClient.WarehouseInformationWSStub;
 
 /**
  * ShoppingCartWSSkeleton java skeleton for the axisService

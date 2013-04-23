@@ -17,9 +17,12 @@ public class AutomaticTests {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		try{
 		ShoppingCartWSStub stub = null;
 		try {
 			stub = new ShoppingCartWSStub();
+			ok();
 		} catch (AxisFault e) {
 			error("AxisFault", "OK");
 			System.exit(1);
@@ -31,16 +34,12 @@ public class AutomaticTests {
 		Login l = new Login();
 		l.setUsername("malo");
 		l.setPassword("malo");
-		try {
 			
-			LoginResponse res = stub.login(l);
-			if(res.getLoginResponse())
-				error("true", "false");
-			else
-				ok();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		LoginResponse res = stub.login(l);
+		if(res.getLoginResponse())
+			error("true", "false");
+		else
+			ok();
 		
 		/**
 		 * Prueba de llamada sin estar logueado
@@ -48,8 +47,6 @@ public class AutomaticTests {
 		try {
 			stub.getProductsList();
 			error("ok", "NotValidSessionError");
-		} catch (RemoteException e) {
-			e.printStackTrace();
 		} catch (NotValidSessionError e) {
 			ok();
 		}
@@ -60,16 +57,13 @@ public class AutomaticTests {
 		 */
 		l.setUsername("Jose");
 		l.setPassword("Esoj");
-		try {
-			
-			LoginResponse res = stub.login(l);
-			if(res.getLoginResponse())
-				ok();
-			else
-				error("false", "true");
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		
+		LoginResponse res1 = stub.login(l);
+		if(res1.getLoginResponse())
+			ok();
+		else
+			error("false", "true");
+
 		
 		/**
 		 * Prueba de lista de productos estando logueado
@@ -81,8 +75,6 @@ public class AutomaticTests {
 				ok();
 			else
 				error(""+products.getProduct().length, "longitud > 0");
-		} catch (RemoteException e) {
-			e.printStackTrace();
 		} catch (NotValidSessionError e) {
 			error("NotValidSessionError", "ok");
 		}
@@ -98,8 +90,6 @@ public class AutomaticTests {
 				ok();
 			else
 				error(""+presupuesto, "1000000.0");
-		} catch (RemoteException e) {
-			e.printStackTrace();
 		} catch (NotValidSessionError e) {
 			error("NotValidSessionError", "ok");
 		}
@@ -116,8 +106,6 @@ public class AutomaticTests {
 			try {
 				precios[i] = stub.getProductPrice(temp).getProductPrice();
 				ok();
-			} catch (RemoteException e) {
-				e.printStackTrace();
 			} catch (ProductUnknownError e) {
 				error("ProductUnknownError", "ok");
 			} catch (NotValidSessionError e) {
@@ -138,8 +126,6 @@ public class AutomaticTests {
 					ok();
 				else
 					error(""+disponible[i], " cantidad > 0");
-			} catch (RemoteException e) {
-				e.printStackTrace();
 			} catch (ProductUnknownError e) {
 				error("ProductUnknownError", "ok");
 			} catch (NotValidSessionError e) {
@@ -159,8 +145,6 @@ public class AutomaticTests {
 			try {
 				stub.addToCart(temp);
 				ok();
-			} catch (RemoteException e) {
-				e.printStackTrace();
 			} catch (ProductUnknownError e) {
 				error("ProductUnknownError", "ok");
 			} catch (NotValidSessionError e) {
@@ -182,8 +166,6 @@ public class AutomaticTests {
 				ok();
 			else
 				error("coste="+stub.costOfCart().getCostOfCart(), ""+costeEsperado);
-		} catch (RemoteException e) {
-			e.printStackTrace();
 		} catch (NotValidSessionError e) {
 			error("NotValidSessionError", "ok");
 		}
@@ -195,8 +177,6 @@ public class AutomaticTests {
 		try {
 			presupuesto = stub.buy().getBudget();
 			expectedBudget -= costeEsperado;
-		} catch (RemoteException e) {
-			e.printStackTrace();
 		} catch (NotValidSessionError e) {
 			error("NotValidSessionError", "ok");
 		} catch (NotEnoughBudgetError e) {
@@ -216,8 +196,6 @@ public class AutomaticTests {
 				ok();
 			else
 				error("presupuesto"+presupuesto, ""+expectedBudget);
-		} catch (RemoteException e) {
-			e.printStackTrace();
 		} catch (NotValidSessionError e) {
 			error("NotValidSessionError", "ok");
 		}
@@ -226,23 +204,21 @@ public class AutomaticTests {
 		/**
 		 * Prueba de logout
 		 */
-		try {
-			stub.logout();
-			ok();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		stub.logout();
+		ok();
 		
 		try {
 			stub.budget();
 			error("ok", "NotValidSessionError");
-		} catch (RemoteException e) {
-			e.printStackTrace();
 		} catch (NotValidSessionError e) {
 			ok();
 		}
 		
 		finalizeTest();
+		
+		}catch(RemoteException e){
+			e.printStackTrace();
+		}
 		
 
 	}

@@ -6,7 +6,7 @@
  * by the Apache Axis2 version: 1.5.4  Built on : Dec 19, 2010 (08:18:42 CET)
  */
 
-    package shoppingCart.warehouseClient;
+    package es.upm.fi.sos.t3.warehouseClient;
 
     /**
      *  WarehouseInformationWSCallbackHandler Callback class, Users can extend this class and implement
@@ -49,7 +49,7 @@
             * override this method for handling normal response from getProductAvailableUnits operation
             */
            public void receiveResultgetProductAvailableUnits(
-                    shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits result
+                    es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductAvailableUnits result
                         ) {
            }
 
@@ -65,7 +65,7 @@
             * override this method for handling normal response from getProductPrice operation
             */
            public void receiveResultgetProductPrice(
-                    shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductPrice result
+                    es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductPrice result
                         ) {
            }
 
@@ -81,7 +81,7 @@
             * override this method for handling normal response from getProductsList operation
             */
            public void receiveResultgetProductsList(
-                    shoppingCart.warehouseClient.WarehouseInformationWSStub.ProductsList result
+                    es.upm.fi.sos.t3.warehouseClient.WarehouseInformationWSStub.ProductsList result
                         ) {
            }
 

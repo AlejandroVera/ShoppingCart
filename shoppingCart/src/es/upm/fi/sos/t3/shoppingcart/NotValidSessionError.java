@@ -1,31 +1,31 @@
 
 /**
- * NotEnoughBudgetError.java
+ * NotValidSessionError.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.5.4  Built on : Dec 19, 2010 (08:18:42 CET)
  */
 
-package shoppingCart;
+package es.upm.fi.sos.t3.shoppingcart;
 
-public class NotEnoughBudgetError extends java.lang.Exception{
+public class NotValidSessionError extends java.lang.Exception{
     
     private es.upm.fi.sos.t3.shoppingcart.ErrorMessage faultMessage;
 
     
-        public NotEnoughBudgetError() {
-            super("NotEnoughBudgetError");
+        public NotValidSessionError() {
+            super("NotValidSessionError");
         }
 
-        public NotEnoughBudgetError(java.lang.String s) {
+        public NotValidSessionError(java.lang.String s) {
            super(s);
         }
 
-        public NotEnoughBudgetError(java.lang.String s, java.lang.Throwable ex) {
+        public NotValidSessionError(java.lang.String s, java.lang.Throwable ex) {
           super(s, ex);
         }
 
-        public NotEnoughBudgetError(java.lang.Throwable cause) {
+        public NotValidSessionError(java.lang.Throwable cause) {
             super(cause);
         }
     

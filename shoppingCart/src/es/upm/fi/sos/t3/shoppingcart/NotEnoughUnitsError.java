@@ -1,31 +1,31 @@
 
 /**
- * NotValidSessionError.java
+ * NotEnoughUnitsError.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.5.4  Built on : Dec 19, 2010 (08:18:42 CET)
  */
 
-package shoppingCart;
+package es.upm.fi.sos.t3.shoppingcart;
 
-public class NotValidSessionError extends java.lang.Exception{
+public class NotEnoughUnitsError extends java.lang.Exception{
     
     private es.upm.fi.sos.t3.shoppingcart.ErrorMessage faultMessage;
 
     
-        public NotValidSessionError() {
-            super("NotValidSessionError");
+        public NotEnoughUnitsError() {
+            super("NotEnoughUnitsError");
         }
 
-        public NotValidSessionError(java.lang.String s) {
+        public NotEnoughUnitsError(java.lang.String s) {
            super(s);
         }
 
-        public NotValidSessionError(java.lang.String s, java.lang.Throwable ex) {
+        public NotEnoughUnitsError(java.lang.String s, java.lang.Throwable ex) {
           super(s, ex);
         }
 
-        public NotValidSessionError(java.lang.Throwable cause) {
+        public NotEnoughUnitsError(java.lang.Throwable cause) {
             super(cause);
         }
     

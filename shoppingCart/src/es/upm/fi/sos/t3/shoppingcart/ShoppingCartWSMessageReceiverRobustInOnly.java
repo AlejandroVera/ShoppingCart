@@ -1,20 +1,21 @@
 
+
 /**
- * ShoppingCartWSMessageReceiverInOut.java
+ * ShoppingCartWSMessageReceiverRobustInOnly.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.5.4  Built on : Dec 19, 2010 (08:18:42 CET)
  */
-        package shoppingCart;
+        package es.upm.fi.sos.t3.shoppingcart;
 
         /**
-        *  ShoppingCartWSMessageReceiverInOut message receiver
+        *  ShoppingCartWSMessageReceiverRobustInOnly message receiver
         */
 
-        public class ShoppingCartWSMessageReceiverInOut extends org.apache.axis2.receivers.AbstractInOutMessageReceiver{
+        public class ShoppingCartWSMessageReceiverRobustInOnly extends org.apache.axis2.receivers.AbstractMessageReceiver{
 
 
-        public void invokeBusinessLogic(org.apache.axis2.context.MessageContext msgContext, org.apache.axis2.context.MessageContext newMsgContext)
+        public void invokeBusinessLogic(org.apache.axis2.context.MessageContext msgContext)
         throws org.apache.axis2.AxisFault{
 
         try {
@@ -35,213 +36,23 @@
         if((op.getName() != null) && ((methodName = org.apache.axis2.util.JavaUtils.xmlNameToJavaIdentifier(op.getName().getLocalPart())) != null)){
 
         
+            if("logout".equals(methodName)){
+            
+            
+                            //doc style
+                            
+                                             skel.logout();
+                                        
 
-            if("productsInCart".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.ProductsAmountsList productsAmountsList13 = null;
-	                        productsAmountsList13 =
-                                                     
-                                                 skel.productsInCart()
-                                                ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), productsAmountsList13, false);
-                                    } else 
+                             envelope = getSOAPFactory(msgContext).getDefaultEnvelope();
+                        
+                } else {
+                  throw new java.lang.RuntimeException("method not found");
+                }
+            
 
-            if("getProductAvailableUnits".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.ProductAvailableUnits productAvailableUnits15 = null;
-	                        es.upm.fi.sos.t3.shoppingcart.ProductName wrappedParam =
-                                                             (es.upm.fi.sos.t3.shoppingcart.ProductName)fromOM(
-                                    msgContext.getEnvelope().getBody().getFirstElement(),
-                                    es.upm.fi.sos.t3.shoppingcart.ProductName.class,
-                                    getEnvelopeNamespaces(msgContext.getEnvelope()));
-                                                
-                                               productAvailableUnits15 =
-                                                   
-                                                   
-                                                         skel.getProductAvailableUnits(wrappedParam)
-                                                    ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), productAvailableUnits15, false);
-                                    } else 
-
-            if("budget".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.Budget budget17 = null;
-	                        budget17 =
-                                                     
-                                                 skel.budget()
-                                                ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), budget17, false);
-                                    } else 
-
-            if("login".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.LoginResponse loginResponse19 = null;
-	                        es.upm.fi.sos.t3.shoppingcart.Login wrappedParam =
-                                                             (es.upm.fi.sos.t3.shoppingcart.Login)fromOM(
-                                    msgContext.getEnvelope().getBody().getFirstElement(),
-                                    es.upm.fi.sos.t3.shoppingcart.Login.class,
-                                    getEnvelopeNamespaces(msgContext.getEnvelope()));
-                                                
-                                               loginResponse19 =
-                                                   
-                                                   
-                                                         skel.login(wrappedParam)
-                                                    ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), loginResponse19, false);
-                                    } else 
-
-            if("costOfCart".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.CostOfCart costOfCart21 = null;
-	                        costOfCart21 =
-                                                     
-                                                 skel.costOfCart()
-                                                ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), costOfCart21, false);
-                                    } else 
-
-            if("getProductsList".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.ProductsList productsList23 = null;
-	                        productsList23 =
-                                                     
-                                                 skel.getProductsList()
-                                                ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), productsList23, false);
-                                    } else 
-
-            if("checkProductAvailability".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.ProductAvailable productAvailable25 = null;
-	                        es.upm.fi.sos.t3.shoppingcart.ProductAmount wrappedParam =
-                                                             (es.upm.fi.sos.t3.shoppingcart.ProductAmount)fromOM(
-                                    msgContext.getEnvelope().getBody().getFirstElement(),
-                                    es.upm.fi.sos.t3.shoppingcart.ProductAmount.class,
-                                    getEnvelopeNamespaces(msgContext.getEnvelope()));
-                                                
-                                               productAvailable25 =
-                                                   
-                                                   
-                                                         skel.checkProductAvailability(wrappedParam)
-                                                    ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), productAvailable25, false);
-                                    } else 
-
-            if("addToCart".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.ProductAvailableUnits productAvailableUnits27 = null;
-	                        es.upm.fi.sos.t3.shoppingcart.ProductAmount wrappedParam =
-                                                             (es.upm.fi.sos.t3.shoppingcart.ProductAmount)fromOM(
-                                    msgContext.getEnvelope().getBody().getFirstElement(),
-                                    es.upm.fi.sos.t3.shoppingcart.ProductAmount.class,
-                                    getEnvelopeNamespaces(msgContext.getEnvelope()));
-                                                
-                                               productAvailableUnits27 =
-                                                   
-                                                   
-                                                         skel.addToCart(wrappedParam)
-                                                    ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), productAvailableUnits27, false);
-                                    } else 
-
-            if("buy".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.Budget budget29 = null;
-	                        budget29 =
-                                                     
-                                                 skel.buy()
-                                                ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), budget29, false);
-                                    } else 
-
-            if("removeFromCart".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.ProductAvailableUnits productAvailableUnits31 = null;
-	                        es.upm.fi.sos.t3.shoppingcart.ProductAmount wrappedParam =
-                                                             (es.upm.fi.sos.t3.shoppingcart.ProductAmount)fromOM(
-                                    msgContext.getEnvelope().getBody().getFirstElement(),
-                                    es.upm.fi.sos.t3.shoppingcart.ProductAmount.class,
-                                    getEnvelopeNamespaces(msgContext.getEnvelope()));
-                                                
-                                               productAvailableUnits31 =
-                                                   
-                                                   
-                                                         skel.removeFromCart(wrappedParam)
-                                                    ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), productAvailableUnits31, false);
-                                    } else 
-
-            if("getProductPrice".equals(methodName)){
-                
-                es.upm.fi.sos.t3.shoppingcart.ProductPrice productPrice33 = null;
-	                        es.upm.fi.sos.t3.shoppingcart.ProductName wrappedParam =
-                                                             (es.upm.fi.sos.t3.shoppingcart.ProductName)fromOM(
-                                    msgContext.getEnvelope().getBody().getFirstElement(),
-                                    es.upm.fi.sos.t3.shoppingcart.ProductName.class,
-                                    getEnvelopeNamespaces(msgContext.getEnvelope()));
-                                                
-                                               productPrice33 =
-                                                   
-                                                   
-                                                         skel.getProductPrice(wrappedParam)
-                                                    ;
-                                            
-                                        envelope = toEnvelope(getSOAPFactory(msgContext), productPrice33, false);
-                                    
-            } else {
-              throw new java.lang.RuntimeException("method not found");
-            }
-        
-
-        newMsgContext.setEnvelope(envelope);
         }
-        } catch (NotEnoughBudgetError e) {
-
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"ErrorMessage");
-            org.apache.axis2.AxisFault f = createAxisFault(e);
-            if (e.getFaultMessage() != null){
-                f.setDetail(toOM(e.getFaultMessage(),false));
-            }
-            throw f;
-            }
-         catch (ProductUnknownError e) {
-
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"ErrorMessage");
-            org.apache.axis2.AxisFault f = createAxisFault(e);
-            if (e.getFaultMessage() != null){
-                f.setDetail(toOM(e.getFaultMessage(),false));
-            }
-            throw f;
-            }
-         catch (NotEnoughUnitsError e) {
-
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"ErrorMessage");
-            org.apache.axis2.AxisFault f = createAxisFault(e);
-            if (e.getFaultMessage() != null){
-                f.setDetail(toOM(e.getFaultMessage(),false));
-            }
-            throw f;
-            }
-         catch (NotValidSessionError e) {
-
-            msgContext.setProperty(org.apache.axis2.Constants.FAULT_NAME,"ErrorMessage");
-            org.apache.axis2.AxisFault f = createAxisFault(e);
-            if (e.getFaultMessage() != null){
-                f.setDetail(toOM(e.getFaultMessage(),false));
-            }
-            throw f;
-            }
-        
+        }
         catch (java.lang.Exception e) {
         throw org.apache.axis2.AxisFault.makeFault(e);
         }

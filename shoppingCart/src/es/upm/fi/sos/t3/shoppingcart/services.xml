@@ -4,10 +4,10 @@
 <serviceGroup>
     <service name="ShoppingCartWS" scope="soapsession">
         <messageReceivers>
-            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="shoppingCart.ShoppingCartWSMessageReceiverInOut"/>
-            <messageReceiver mep="http://www.w3.org/ns/wsdl/robust-in-only" class="shoppingCart.ShoppingCartWSMessageReceiverRobustInOnly"/>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="es.upm.fi.sos.t3.shoppingcart.ShoppingCartWSMessageReceiverInOut"/>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/robust-in-only" class="es.upm.fi.sos.t3.shoppingcart.ShoppingCartWSMessageReceiverRobustInOnly"/>
         </messageReceivers>
-        <parameter name="ServiceClass">shoppingCart.ShoppingCartWSSkeleton</parameter>
+        <parameter name="ServiceClass">es.upm.fi.sos.t3.shoppingcart.ShoppingCartWSSkeleton</parameter>
         <parameter name="useOriginalwsdl">true</parameter>
         <parameter name="modifyUserWSDLPortAddress">true</parameter>
         <operation name="productsInCart" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://shoppingCart.t3.sos.fi.upm.es">
