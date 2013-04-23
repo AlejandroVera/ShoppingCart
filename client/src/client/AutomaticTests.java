@@ -71,9 +71,16 @@ public class AutomaticTests {
 			e.printStackTrace();
 		}
 		
+		
+		finalizeTest();
+		
 
 	}
 	
+	private static void finalizeTest() {
+		System.out.println("\n\n TEST FINALIZADO ("+testOk+"/"+testCase+")");	
+	}
+
 	private static void error(String obtenido, String esperado){
 		System.out.println("[ERROR] Test "+testCase+": se esperaba '"+esperado+
 				"' pero se ha obtenido '"+obtenido+"'");
