@@ -275,27 +275,31 @@ public class ShoppingCartWSSkeleton {
 
 		ProductName productName = new ProductName();
 		productName.setProductName(nombre);
-		if (getProductAvailableUnits(productName).getProductAvailableUnits()<cantidad)
+		int cantidadAlmacen = getProductAvailableUnits(productName).getProductAvailableUnits();
+		if (cantidadAlmacen<cantidad)
 			throw new NotEnoughUnitsError();
+		
 
 		CartItem item;
 		int indice = buscaCarro (nombre);
 		int num;
 
 		//Si existe ya el item aumentamos su cantidad
-		if (indice!=-1){
+		if (indice != -1){
 			item = cart.get(indice);
-			num=item.amount+cantidad;
-			item.amount=num;
+			num = item.amount + cantidad;
+			if(cantidadAlmacen < num)
+				throw new NotEnoughUnitsError();
+			item.amount = num;
 			cart.set(indice, item);			
 		}
 		//Si no, lo añadimos a la lista
-		else if (cantidad ==0)//Si se añade con 0 que no se añada al carro con 0 uds
-			num=0;
+		else if (cantidad == 0)//Si se añade con 0 que no se añada al carro con 0 uds
+			num = 0;
 		else{
 			item = new CartItem(nombre,cantidad);
 			cart.add(item);
-			num=cantidad;
+			num = cantidad;
 		}
 		
 		ProductAvailableUnits units = new ProductAvailableUnits();
