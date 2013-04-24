@@ -238,14 +238,7 @@ public class GlobalContainer {
 		assert totalNumLabel != null : "fx:id=\"totalNumLabel\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
 		assert userLoginField != null : "fx:id=\"userLoginField\" was not injected: check your FXML file 'GlobalContainer.fxml'.";
 
-		try {
-			this.shopCart = new ShoppingCartWSStub();
-			this.shopCart._getServiceClient().engageModule("addressing");
-			this.shopCart._getServiceClient().getOptions().setManageSession(true);
-		} catch (AxisFault e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
+		startStub();
 
 		this.itemList = new HashMap<String, ListElement>();
 		this.cartList = new HashMap<String, ListElement>();
@@ -256,6 +249,18 @@ public class GlobalContainer {
 
 	}
 
+
+	private void startStub() {
+		try {
+			this.shopCart = new ShoppingCartWSStub();
+			this.shopCart._getServiceClient().engageModule("addressing");
+			this.shopCart._getServiceClient().getOptions().setManageSession(true);
+		} catch (AxisFault e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+
+	}
 
 	public void addToCart(String name, int amount, boolean remove){
 
@@ -418,6 +423,7 @@ public class GlobalContainer {
 		listContainer.setVisible(false);
 		cartContainer.setVisible(false);
 		loginContainer.setVisible(true);
+		startStub();
 	}	
 	
 	public void costeTotal(){
