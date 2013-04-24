@@ -4,7 +4,7 @@
 	<classpathentry kind="src" output="client/bin" path="client/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Axis2"/>
-	<classpathentry kind="lib" path="client/lib/addressing-1.5.4.jar"/>
 	<classpathentry kind="lib" path="client/lib/jfxrt.jar"/>
+	<classpathentry kind="lib" path="/home/xafilox/Universidad/Sexto_semestre/SOS/SOSSwStack/axis2-1.5.4/repository/modules/addressing-1.5.4.mar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
