@@ -6,6 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?scenebuilder-stylesheet GlobalContainer.css?>
 
 <AnchorPane id="AnchorPane" fx:id="element" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="710.0" xmlns:fx="http://javafx.com/fxml" fx:controller="client.gui.ListElement">
   <children>
@@ -39,15 +40,15 @@
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="9.0" prefWidth="11.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="215.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="0.0" prefWidth="12.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="236.0" minWidth="5.0" prefWidth="91.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="236.0" minWidth="4.0" prefWidth="12.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="82.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="295.0" minWidth="5.0" prefWidth="22.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="295.0" minWidth="0.0" prefWidth="41.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="36.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="188.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="161.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="266.0" minWidth="0.0" prefWidth="9.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="236.0" minWidth="5.0" prefWidth="117.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="236.0" minWidth="4.0" prefWidth="16.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="83.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="295.0" minWidth="2.0" prefWidth="2.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="295.0" minWidth="0.0" prefWidth="53.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="79.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="179.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />

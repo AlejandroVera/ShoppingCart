@@ -20,6 +20,67 @@
 #cartPopup{
 	-fx-border-style: solid;
 	-fx-border-color: rgba(170, 170, 170, 0.4);
+	-fx-background-color: rgba(255, 255, 255, 1);
 	-fx-border-width: 1px;
 	-fx-border-radius: 15px;
+	-fx-background-radius: 15px;
 }
+
+#almacen, #presupuesto{
+	-fx-font-family: "Arial Narrow";
+	-fx-font-weight: bold;
+	-fx-font-size: 13px;
+	-fx-text-fill: rgba(0, 0, 0, 0.8);
+}
+
+#budgetLabel{
+	-fx-font-weight: bold;
+	-fx-font-size: 14px;
+	-fx-text-shadow:rgba(0, 0, 0, 0.8);
+	-fx-effect: innershadow( three-pass-box , rgba(100, 220, 100, 1) ,5, 0 , 0 , 0 );
+	-fx-text-fill: rgba(0, 0, 0, 0.8);
+}
+
+.button{
+	-fx-border-style: solid;
+	-fx-border-color: rgba(170, 170, 170, 0.4);	
+	-fx-border-radius: 15px;
+	-fx-background-radius: 15px;
+	-fx-font-family: "Arial Narrow";
+	
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.80) ,5, 0 , 0 , 0 );
+	
+}
+
+
+#exit {
+	-fx-border-style: solid;
+	-fx-border-color: rgba(170, 170, 170, 0.4);	
+	-fx-border-radius: 50px;
+	-fx-background-radius: 50px;
+	-fx-font-family: "Arial Narrow";
+	-fx-background-color: rgba(255, 60, 0, 0.9);	
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.80) ,5, 0 , 0 , 0 );
+}
+.button: hover{
+	-fx-cursor: hand;
+	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.80) ,5, 0 , 0 , 0 );
+}
+
+#remove: hover, #mas: hover, #exit: hover{
+	-fx-cursor: hand;
+	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,1) ,5, 0 , 0 , 0 );
+}
+
+.button: pressed, #remove: pressed, #mas: pressed, #exit: pressed{
+	-fx-effect: innershadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0 , 2 , 5 );
+}
+
+#nombre, #unidades. #precio{
+	-fx-font-size: 12px;
+	-fx-font-weight: normal;
+	-fx-font-size: 13px;
+}
+	
+
+

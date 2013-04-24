@@ -55,6 +55,7 @@ public class ListElement {
 		Integer amount = Integer.parseInt(udsToAdd.getText());
 		ClientLauncher.globalContainer.addToCart(this.product, amount, this.enCarro);
 		ClientLauncher.globalContainer.costeTotal();
+		this.udsToAdd.setText("0");
     }
 
     @FXML

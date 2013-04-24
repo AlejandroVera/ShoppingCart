@@ -67,9 +67,9 @@ public class GlobalContainer {
 
 	@FXML
 	private TextArea errorMes;
-	
-    @FXML
-    private TitledPane errorTitle;
+
+	@FXML
+	private TitledPane errorTitle;
 
 	@FXML
 	private AnchorPane listContainer;
@@ -150,11 +150,10 @@ public class GlobalContainer {
 			}else{ //No autorizado
 				errorContainer.setVisible(true);
 			}
-				
-		} catch (NotValidSessionError e) {
-			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
-		} catch (RemoteException e) {
-			errorSesion();	}
+
+		} catch (Exception e){
+			tratarExcepcion(e);
+		}
 
 	}
 
@@ -167,8 +166,8 @@ public class GlobalContainer {
 			listContainer.setVisible(false);
 			cartContainer.setVisible(false);
 			loginContainer.setVisible(true);
-		} catch (RemoteException e) {
-			errorSesion();
+		} catch (Exception e){
+			tratarExcepcion(e);
 		}
 
 	}
@@ -180,16 +179,11 @@ public class GlobalContainer {
 			this.budgetLabel.setText(bu.getBudget()+" €");
 			this.costeTotal();
 			clear(listaCarro);
-			
-		
-		}catch (NotEnoughBudgetError e){
-			showMes ("Error", "No tienes suficiente dinero para realizar la compra.");
-			System.err.println("No tienes suficiente dinero para realizar la compra.");
-		} catch (NotValidSessionError e) {
-			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
-		}catch (RemoteException e){
-			errorSesion();
-		}
+			cartContainer.setVisible(false);
+			this.showMes("Compra realizada", "Su compra ha sido realizada con éxito.");
+
+		} catch (Exception e){
+			tratarExcepcion(e);}
 	}
 
 	@FXML
@@ -211,10 +205,8 @@ public class GlobalContainer {
 			cartContainer.setVisible(true);
 
 
-		} catch (NotValidSessionError e) {
-			System.err.println("Upss...esto es vergonzoso...Parece que no estabas logueado.");
-		} catch (RemoteException e) {
-			errorSesion();
+		} catch (Exception e){
+			tratarExcepcion(e);
 		}
 
 
@@ -255,9 +247,8 @@ public class GlobalContainer {
 			this.shopCart = new ShoppingCartWSStub();
 			this.shopCart._getServiceClient().engageModule("addressing");
 			this.shopCart._getServiceClient().getOptions().setManageSession(true);
-		} catch (AxisFault e) {
-			e.printStackTrace();
-			System.exit(1);
+		} catch (Exception e){
+			tratarExcepcion(e);
 		}
 
 	}
@@ -274,7 +265,7 @@ public class GlobalContainer {
 		ProductAvailableUnits units = new ProductAvailableUnits();
 		int unidades;
 		if(!remove){//Queremos añadirlo al carro
-		
+
 			try {
 				units =shopCart.addToCart(prod);
 				unidades= units.getProductAvailableUnits();
@@ -282,33 +273,24 @@ public class GlobalContainer {
 					addEntry(name, listaCarro, unidades);
 				else
 					elemControl.setAmount(unidades);
-					
-			} catch (ProductUnknownError e) {
-				e.printStackTrace();
-			} catch (NotEnoughUnitsError e) {
-				this.showMes("Error", "No hay suficientes unidades en el almacén.");
-			} catch (NotValidSessionError e) {
-				e.printStackTrace();
-			} catch (RemoteException e) {
-				errorSesion();
+
+			} catch (Exception e){
+				tratarExcepcion(e);
 			}
 
 		}else if (remove){ //Ya estaba en el carro y lo vamos a borrar
 			try {
 				units =shopCart.removeFromCart(prod);
-			
-			} catch (ProductUnknownError e) {
-				e.printStackTrace();			
-			} catch (NotValidSessionError e) {
-				e.printStackTrace();
-			} catch (RemoteException e) {
-				errorSesion();}
+
+			} catch (Exception e){
+				tratarExcepcion(e);
+			}
 			unidades= units.getProductAvailableUnits();			
-			
+
 			if (unidades>0)
 				elemControl.setAmount(unidades);
 			else{
-				
+
 				removeEntry(name, this.listaCarro);}			
 		}
 
@@ -386,12 +368,8 @@ public class GlobalContainer {
 			ProductName p = new ProductName();
 			p.setProductName(product);
 			a= this.shopCart.getProductPrice(p).getProductPrice();		
-		} catch (ProductUnknownError e) {
-			e.printStackTrace();		
-		} catch (NotValidSessionError e) {
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			errorSesion();}
+		} catch (Exception e){
+			tratarExcepcion(e);}
 		return a;
 	}
 
@@ -403,37 +381,58 @@ public class GlobalContainer {
 			p.setProductName(product);
 			units= this.shopCart.getProductAvailableUnits(p).getProductAvailableUnits();
 
-		} catch (ProductUnknownError e) {
-			e.printStackTrace();		
-		} catch (NotValidSessionError e) {
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			errorSesion();}
+		} catch (Exception e){
+			tratarExcepcion(e);}
+
 		return units;
 	}
-	
+
 	public void showMes (String title, String mes){
 		this.errorMes.setText(mes);
 		this.errorTitle.setText(title);
 		errorContainer.setVisible(true);		
 	}
-	
-	public void errorSesion(){
-		showMes ("Error", "Se ha sobrepasado el límite de 30 seg, perdiendo la sesion SOAP.");
-		listContainer.setVisible(false);
-		cartContainer.setVisible(false);
-		loginContainer.setVisible(true);
-		startStub();
-	}	
-	
+
+
 	public void costeTotal(){
 		try {
 			double coste = this.shopCart.costOfCart().getCostOfCart();
 			this.totalNumLabel.setText(coste + " €");
 
-		} catch (NotValidSessionError e) {
-			e.printStackTrace();
-		}catch (RemoteException e) {}
-	
+		} catch (Exception e){
+			tratarExcepcion(e);}
+
+	}
+	public void tratarExcepcion(Exception e){
+		
+		String excepcion = e.getMessage();
+		if (excepcion.equals("Conexión rehusada"))
+			showMes ("Error", "Error de conexión.");
+		else if (excepcion.equals("NotValidSession"))
+			showMes ("Error", "Sesión no válida.");
+		else if (excepcion.startsWith("Unable to find corresponding context for the serviceGroupId")){
+			showMes ("Error", "Se ha sobrepasado el límite de 30 seg, perdiendo la sesion SOAP.");
+			listContainer.setVisible(false);
+			cartContainer.setVisible(false);
+			loginContainer.setVisible(true);
+			startStub();
+		}
+		else if (excepcion.startsWith("The server did not recognise the action which it received")){
+			showMes ("Error", "El servicio Shopping Cart no está lanzado en Axis2.");
+			listContainer.setVisible(false);
+			cartContainer.setVisible(false);
+			loginContainer.setVisible(true);			
+		}
+		
+		
+		else if (excepcion.equals("NotEnoughBudgetError"))
+			showMes ("Error", "No tienes suficiente dinero para realizar la compra.");
+		else if (excepcion.equals("NotEnoughUnitsError"))
+			showMes ("Error", "No hay suficientes unidades en el almacén.");
+		else if (excepcion.equals("ProductUnknownError"))
+			showMes ("Error", "El producto no existe");
+		else
+			showMes ("Error", "Error desconocido");
+
 	}
 }

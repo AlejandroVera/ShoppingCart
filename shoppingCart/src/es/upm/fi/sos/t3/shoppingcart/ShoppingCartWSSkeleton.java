@@ -275,6 +275,9 @@ public class ShoppingCartWSSkeleton {
 
 		ProductName productName = new ProductName();
 		productName.setProductName(nombre);
+		if (!this.checkProductExistence(nombre)){
+			throw new ProductUnknownError();
+		}
 		int cantidadAlmacen = getProductAvailableUnits(productName).getProductAvailableUnits();
 		if (cantidadAlmacen<cantidad)
 			throw new NotEnoughUnitsError();
